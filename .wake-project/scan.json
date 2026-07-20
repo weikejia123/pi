@@ -1,12 +1,19 @@
 {
-  "schema_version": "6",
-  "scanned_at": "2026-07-20T13:15:50Z",
-  "duration_ms": 460,
+  "schema_version": "7",
+  "scanned_at": "2026-07-20T19:45:56Z",
+  "duration_ms": 236,
   "is_git_repo": true,
   "git": {
     "root": "/Users/weikejia/CODE/my-agent-group/projects/coder-agent/pi",
-    "branch": "main",
+    "branch": "wkj-dev",
     "remotes": [
+      {
+        "name": "gitea",
+        "url": "http://localhost:3000/dzsoft/pi.git",
+        "host": "localhost",
+        "owner": "dzsoft",
+        "repo": "pi"
+      },
       {
         "name": "origin",
         "url": "https://github.com/weikejia123/pi.git",
@@ -22,15 +29,17 @@
         "repo": "pi"
       }
     ],
-    "head": "13437ca8",
+    "head": "ca2900aa7",
     "path_prefix": "",
     "has_commit_hooks": false,
-    "has_upstream": true,
+    "has_upstream": false,
     "is_detached_head": false,
-    "dirty_file_count": 0,
+    "dirty_file_count": 1,
     "has_untracked": true,
-    "ahead_count": 0,
-    "behind_count": 0
+    "ahead_count": null,
+    "behind_count": null,
+    "latest_tag": "v0.80.10",
+    "submodules": []
   },
   "detected_languages": [
     {
@@ -141,18 +150,18 @@
     "npm"
   ],
   "timeline": {
-    "first_commit_at": "2026-07-20T09:09:56+02:00",
-    "last_commit_at": "2026-07-20T14:03:33+02:00",
-    "shallow_clone": true,
-    "last_file_modified_at": "2026-07-20T12:35:49Z",
-    "last_core_file_modified_at": "2026-07-20T12:35:24Z",
+    "first_commit_at": "2025-08-09T17:18:38+02:00",
+    "last_commit_at": "2026-07-21T01:08:06+08:00",
+    "shallow_clone": false,
+    "last_file_modified_at": "2026-07-20T19:42:25Z",
+    "last_core_file_modified_at": "2026-07-20T14:45:56Z",
     "local_arrival_at": "2026-06-05T12:44:36Z",
     "local_arrival_source": "git_dir_birthtime",
     "local_arrival_approximate": true
   },
   "totals": {
-    "file_count": 1090,
-    "size_bytes": 48544442,
+    "file_count": 1109,
+    "size_bytes": 15937108,
     "scope": "excluding_ignored_dirs"
   },
   "ignored_dirs": [
@@ -172,17 +181,10 @@
   ],
   "manifest_parse_errors": [],
   "nested_repos": [],
-  "warnings": [
-    {
-      "code": "shallow_clone",
-      "severity": "info",
-      "message": "Shallow clone: first_commit_at may be unreliable"
-    }
-  ],
+  "has_ci_config": true,
+  "warnings": [],
   "scan_completeness": {
-    "level": "partial",
-    "reasons": [
-      "shallow_clone"
-    ]
+    "level": "full",
+    "reasons": []
   }
 }

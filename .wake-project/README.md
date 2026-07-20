@@ -2,7 +2,7 @@
 
 > 本文件由 wake-project 程序自动生成，内容随 schema 版本固化，在所有项目中一致。
 > 请勿手工修改（scan 会用程序内置版本覆盖）。
-> 当前 schema_version: 6
+> 当前 schema_version: 7
 
 ## 目录用途
 
@@ -51,6 +51,10 @@
 - `git.has_untracked`：是否存在未跟踪文件
 - `git.ahead_count`：领先 upstream 的 commit 数（无 upstream 时为 null）
 - `git.behind_count`：落后 upstream 的 commit 数（无 upstream 时为 null）
+- `git.latest_tag`：最近可达的 git tag（无 tag 时为 null）
+- `git.submodules[]`：git 子模块 `{path, url, head}`
+  - `path`：子模块相对路径；`url`：.gitmodules 中声明的远程地址
+  - `head`：子模块当前锁定的短哈希（未初始化时为 null）
 - `detected_languages[]`：`{language, files}` 按扩展名统计**编程语言**，按文件数降序
   - 不含 Markdown、Shell、TOML、YAML、JSON、HTML、CSS 等非编程语言
 - `manifests[]`：顶层存在的知名 manifest 文件名
@@ -72,6 +76,7 @@
 - `ignored_dirs[]`：本次扫描实际生效的目录忽略集（审计用，随项目配置文件而变化）
 - `manifest_parse_errors[]`：存在但解析失败的 manifest 文件相对路径（如 `packages/broken/package.json`）
 - `nested_repos[]`：含独立 `.git` 的子目录相对路径（扫描时跳过，不纳入语言/文件统计）
+- `has_ci_config`：是否检测到 CI 配置文件（`.github/workflows/`、`.gitlab-ci.yml`、`Jenkinsfile` 等）
 - `warnings[]`：扫描质量警告 `{code, severity, message}`
   - `code`：稳定的 snake_case 短代码（如 `manifest_parse_failed`、`shallow_clone`）
   - `severity` ∈ `info` / `warning`

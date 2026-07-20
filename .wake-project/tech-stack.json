@@ -1,6 +1,6 @@
 {
-  "schema_version": "6",
-  "scanned_at": "2026-07-20T13:15:50Z",
+  "schema_version": "7",
+  "scanned_at": "2026-07-20T19:45:56Z",
   "tech_stack": [
     {
       "name": "@anthropic-ai/sandbox-runtime",
@@ -20,6 +20,13 @@
       "name": "@types/node",
       "category": "library",
       "version": "22.19.19",
+      "dev": true,
+      "source": "package.json"
+    },
+    {
+      "name": "@types/semver",
+      "category": "library",
+      "version": "7.7.1",
       "dev": true,
       "source": "package.json"
     },
