@@ -1,0 +1,510 @@
+{
+  "schema_version": "6",
+  "scanned_at": "2026-07-20T13:15:50Z",
+  "tech_stack": [
+    {
+      "name": "@anthropic-ai/sandbox-runtime",
+      "category": "library",
+      "version": "0.0.26",
+      "dev": true,
+      "source": "package.json"
+    },
+    {
+      "name": "@biomejs/biome",
+      "category": "library",
+      "version": "2.3.5",
+      "dev": true,
+      "source": "package.json"
+    },
+    {
+      "name": "@types/node",
+      "category": "library",
+      "version": "22.19.19",
+      "dev": true,
+      "source": "package.json"
+    },
+    {
+      "name": "@typescript/native-preview",
+      "category": "library",
+      "version": "7.0.0-dev.20260120.1",
+      "dev": true,
+      "source": "package.json"
+    },
+    {
+      "name": "TypeScript",
+      "category": "tool",
+      "version": "5.9.3",
+      "dev": true,
+      "source": "package.json"
+    },
+    {
+      "name": "esbuild",
+      "category": "library",
+      "version": "0.28.1",
+      "dev": true,
+      "source": "package.json"
+    },
+    {
+      "name": "husky",
+      "category": "library",
+      "version": "9.1.7",
+      "dev": true,
+      "source": "package.json"
+    },
+    {
+      "name": "jiti",
+      "category": "library",
+      "version": "2.7.0",
+      "dev": true,
+      "source": "package.json"
+    },
+    {
+      "name": "shx",
+      "category": "library",
+      "version": "0.4.0",
+      "dev": true,
+      "source": "package.json"
+    },
+    {
+      "name": "tsx",
+      "category": "library",
+      "version": "4.22.1",
+      "dev": true,
+      "source": "package.json"
+    },
+    {
+      "name": "@earendil-works/pi-ai",
+      "category": "library",
+      "version": "^0.80.10",
+      "dev": false,
+      "source": "packages/agent/package.json"
+    },
+    {
+      "name": "@types/node",
+      "category": "library",
+      "version": "24.12.4",
+      "dev": true,
+      "source": "packages/agent/package.json"
+    },
+    {
+      "name": "@vitest/coverage-v8",
+      "category": "library",
+      "version": "4.1.9",
+      "dev": true,
+      "source": "packages/agent/package.json"
+    },
+    {
+      "name": "TypeScript",
+      "category": "tool",
+      "version": "5.9.3",
+      "dev": true,
+      "source": "packages/agent/package.json"
+    },
+    {
+      "name": "Vitest",
+      "category": "tool",
+      "version": "4.1.9",
+      "dev": true,
+      "source": "packages/agent/package.json"
+    },
+    {
+      "name": "ignore",
+      "category": "library",
+      "version": "7.0.5",
+      "dev": false,
+      "source": "packages/agent/package.json"
+    },
+    {
+      "name": "typebox",
+      "category": "library",
+      "version": "1.1.38",
+      "dev": false,
+      "source": "packages/agent/package.json"
+    },
+    {
+      "name": "yaml",
+      "category": "library",
+      "version": "2.9.0",
+      "dev": false,
+      "source": "packages/agent/package.json"
+    },
+    {
+      "name": "@anthropic-ai/sdk",
+      "category": "library",
+      "version": "0.91.1",
+      "dev": false,
+      "source": "packages/ai/package.json"
+    },
+    {
+      "name": "@aws-sdk/client-bedrock-runtime",
+      "category": "library",
+      "version": "3.1048.0",
+      "dev": false,
+      "source": "packages/ai/package.json"
+    },
+    {
+      "name": "@google/genai",
+      "category": "library",
+      "version": "1.52.0",
+      "dev": false,
+      "source": "packages/ai/package.json"
+    },
+    {
+      "name": "@mistralai/mistralai",
+      "category": "library",
+      "version": "2.2.6",
+      "dev": false,
+      "source": "packages/ai/package.json"
+    },
+    {
+      "name": "@opentelemetry/api",
+      "category": "library",
+      "version": "1.9.0",
+      "dev": false,
+      "source": "packages/ai/package.json"
+    },
+    {
+      "name": "@smithy/node-http-handler",
+      "category": "library",
+      "version": "4.7.3",
+      "dev": false,
+      "source": "packages/ai/package.json"
+    },
+    {
+      "name": "@types/node",
+      "category": "library",
+      "version": "24.12.4",
+      "dev": true,
+      "source": "packages/ai/package.json"
+    },
+    {
+      "name": "Vitest",
+      "category": "tool",
+      "version": "4.1.9",
+      "dev": true,
+      "source": "packages/ai/package.json"
+    },
+    {
+      "name": "canvas",
+      "category": "library",
+      "version": "3.2.3",
+      "dev": true,
+      "source": "packages/ai/package.json"
+    },
+    {
+      "name": "http-proxy-agent",
+      "category": "library",
+      "version": "7.0.2",
+      "dev": false,
+      "source": "packages/ai/package.json"
+    },
+    {
+      "name": "https-proxy-agent",
+      "category": "library",
+      "version": "7.0.6",
+      "dev": false,
+      "source": "packages/ai/package.json"
+    },
+    {
+      "name": "openai",
+      "category": "library",
+      "version": "6.26.0",
+      "dev": false,
+      "source": "packages/ai/package.json"
+    },
+    {
+      "name": "partial-json",
+      "category": "library",
+      "version": "0.1.7",
+      "dev": false,
+      "source": "packages/ai/package.json"
+    },
+    {
+      "name": "typebox",
+      "category": "library",
+      "version": "1.1.38",
+      "dev": false,
+      "source": "packages/ai/package.json"
+    },
+    {
+      "name": "@anthropic-ai/sdk",
+      "category": "library",
+      "version": "0.52.0",
+      "dev": false,
+      "source": "packages/coding-agent/examples/extensions/custom-provider-anthropic/package.json"
+    },
+    {
+      "name": "@earendil-works/gondolin",
+      "category": "library",
+      "version": "0.12.0",
+      "dev": false,
+      "source": "packages/coding-agent/examples/extensions/gondolin/package.json"
+    },
+    {
+      "name": "@anthropic-ai/sandbox-runtime",
+      "category": "library",
+      "version": "0.0.26",
+      "dev": false,
+      "source": "packages/coding-agent/examples/extensions/sandbox/package.json"
+    },
+    {
+      "name": "@types/ms",
+      "category": "library",
+      "version": "2.1.0",
+      "dev": true,
+      "source": "packages/coding-agent/examples/extensions/with-deps/package.json"
+    },
+    {
+      "name": "ms",
+      "category": "library",
+      "version": "2.1.3",
+      "dev": false,
+      "source": "packages/coding-agent/examples/extensions/with-deps/package.json"
+    },
+    {
+      "name": "@earendil-works/pi-coding-agent",
+      "category": "library",
+      "version": "0.80.10",
+      "dev": false,
+      "source": "packages/coding-agent/install-lock/package.json"
+    },
+    {
+      "name": "@earendil-works/pi-agent-core",
+      "category": "library",
+      "version": "^0.80.10",
+      "dev": false,
+      "source": "packages/coding-agent/package.json"
+    },
+    {
+      "name": "@earendil-works/pi-ai",
+      "category": "library",
+      "version": "^0.80.10",
+      "dev": false,
+      "source": "packages/coding-agent/package.json"
+    },
+    {
+      "name": "@earendil-works/pi-tui",
+      "category": "library",
+      "version": "^0.80.10",
+      "dev": false,
+      "source": "packages/coding-agent/package.json"
+    },
+    {
+      "name": "@silvia-odwyer/photon-node",
+      "category": "library",
+      "version": "0.3.4",
+      "dev": false,
+      "source": "packages/coding-agent/package.json"
+    },
+    {
+      "name": "@types/cross-spawn",
+      "category": "library",
+      "version": "6.0.6",
+      "dev": true,
+      "source": "packages/coding-agent/package.json"
+    },
+    {
+      "name": "@types/diff",
+      "category": "library",
+      "version": "7.0.2",
+      "dev": true,
+      "source": "packages/coding-agent/package.json"
+    },
+    {
+      "name": "@types/hosted-git-info",
+      "category": "library",
+      "version": "3.0.5",
+      "dev": true,
+      "source": "packages/coding-agent/package.json"
+    },
+    {
+      "name": "@types/ms",
+      "category": "library",
+      "version": "2.1.0",
+      "dev": true,
+      "source": "packages/coding-agent/package.json"
+    },
+    {
+      "name": "@types/node",
+      "category": "library",
+      "version": "24.12.4",
+      "dev": true,
+      "source": "packages/coding-agent/package.json"
+    },
+    {
+      "name": "@types/proper-lockfile",
+      "category": "library",
+      "version": "4.1.4",
+      "dev": true,
+      "source": "packages/coding-agent/package.json"
+    },
+    {
+      "name": "@types/semver",
+      "category": "library",
+      "version": "7.7.1",
+      "dev": true,
+      "source": "packages/coding-agent/package.json"
+    },
+    {
+      "name": "TypeScript",
+      "category": "tool",
+      "version": "5.9.3",
+      "dev": true,
+      "source": "packages/coding-agent/package.json"
+    },
+    {
+      "name": "Vitest",
+      "category": "tool",
+      "version": "4.1.9",
+      "dev": true,
+      "source": "packages/coding-agent/package.json"
+    },
+    {
+      "name": "chalk",
+      "category": "library",
+      "version": "5.6.2",
+      "dev": false,
+      "source": "packages/coding-agent/package.json"
+    },
+    {
+      "name": "cross-spawn",
+      "category": "library",
+      "version": "7.0.6",
+      "dev": false,
+      "source": "packages/coding-agent/package.json"
+    },
+    {
+      "name": "diff",
+      "category": "library",
+      "version": "8.0.4",
+      "dev": false,
+      "source": "packages/coding-agent/package.json"
+    },
+    {
+      "name": "glob",
+      "category": "library",
+      "version": "13.0.6",
+      "dev": false,
+      "source": "packages/coding-agent/package.json"
+    },
+    {
+      "name": "highlight.js",
+      "category": "library",
+      "version": "10.7.3",
+      "dev": false,
+      "source": "packages/coding-agent/package.json"
+    },
+    {
+      "name": "hosted-git-info",
+      "category": "library",
+      "version": "9.0.3",
+      "dev": false,
+      "source": "packages/coding-agent/package.json"
+    },
+    {
+      "name": "ignore",
+      "category": "library",
+      "version": "7.0.5",
+      "dev": false,
+      "source": "packages/coding-agent/package.json"
+    },
+    {
+      "name": "jiti",
+      "category": "library",
+      "version": "2.7.0",
+      "dev": false,
+      "source": "packages/coding-agent/package.json"
+    },
+    {
+      "name": "minimatch",
+      "category": "library",
+      "version": "10.2.5",
+      "dev": false,
+      "source": "packages/coding-agent/package.json"
+    },
+    {
+      "name": "proper-lockfile",
+      "category": "library",
+      "version": "4.1.2",
+      "dev": false,
+      "source": "packages/coding-agent/package.json"
+    },
+    {
+      "name": "semver",
+      "category": "library",
+      "version": "7.8.0",
+      "dev": false,
+      "source": "packages/coding-agent/package.json"
+    },
+    {
+      "name": "shx",
+      "category": "library",
+      "version": "0.4.0",
+      "dev": true,
+      "source": "packages/coding-agent/package.json"
+    },
+    {
+      "name": "typebox",
+      "category": "library",
+      "version": "1.1.38",
+      "dev": false,
+      "source": "packages/coding-agent/package.json"
+    },
+    {
+      "name": "undici",
+      "category": "library",
+      "version": "8.5.0",
+      "dev": false,
+      "source": "packages/coding-agent/package.json"
+    },
+    {
+      "name": "yaml",
+      "category": "library",
+      "version": "2.9.0",
+      "dev": false,
+      "source": "packages/coding-agent/package.json"
+    },
+    {
+      "name": "@earendil-works/pi-coding-agent",
+      "category": "library",
+      "version": "^0.80.10",
+      "dev": false,
+      "source": "packages/orchestrator/package.json"
+    },
+    {
+      "name": "shx",
+      "category": "library",
+      "version": "0.4.0",
+      "dev": true,
+      "source": "packages/orchestrator/package.json"
+    },
+    {
+      "name": "@xterm/headless",
+      "category": "library",
+      "version": "5.5.0",
+      "dev": true,
+      "source": "packages/tui/package.json"
+    },
+    {
+      "name": "chalk",
+      "category": "library",
+      "version": "5.6.2",
+      "dev": true,
+      "source": "packages/tui/package.json"
+    },
+    {
+      "name": "get-east-asian-width",
+      "category": "library",
+      "version": "1.6.0",
+      "dev": false,
+      "source": "packages/tui/package.json"
+    },
+    {
+      "name": "marked",
+      "category": "library",
+      "version": "18.0.5",
+      "dev": false,
+      "source": "packages/tui/package.json"
+    }
+  ]
+}

@@ -1,0 +1,188 @@
+{
+  "schema_version": "6",
+  "scanned_at": "2026-07-20T13:15:50Z",
+  "duration_ms": 460,
+  "is_git_repo": true,
+  "git": {
+    "root": "/Users/weikejia/CODE/my-agent-group/projects/coder-agent/pi",
+    "branch": "main",
+    "remotes": [
+      {
+        "name": "origin",
+        "url": "https://github.com/weikejia123/pi.git",
+        "host": "github.com",
+        "owner": "weikejia123",
+        "repo": "pi"
+      },
+      {
+        "name": "upstream",
+        "url": "https://github.com/earendil-works/pi.git",
+        "host": "github.com",
+        "owner": "earendil-works",
+        "repo": "pi"
+      }
+    ],
+    "head": "13437ca8",
+    "path_prefix": "",
+    "has_commit_hooks": false,
+    "has_upstream": true,
+    "is_detached_head": false,
+    "dirty_file_count": 0,
+    "has_untracked": true,
+    "ahead_count": 0,
+    "behind_count": 0
+  },
+  "detected_languages": [
+    {
+      "language": "TypeScript",
+      "files": 866
+    },
+    {
+      "language": "JavaScript",
+      "files": 22
+    },
+    {
+      "language": "C",
+      "files": 3
+    }
+  ],
+  "manifests": [
+    "package.json"
+  ],
+  "key_files": [
+    ".gitattributes",
+    ".gitignore",
+    "AGENTS.md",
+    "CONTRIBUTING.md",
+    "LICENSE",
+    "README-WAKE.md",
+    "README.md"
+  ],
+  "key_dirs": [
+    ".github",
+    "packages",
+    "scripts"
+  ],
+  "manifests_detail": [
+    {
+      "path": "package.json",
+      "kind": "package.json",
+      "name": "pi-monorepo",
+      "version": "0.0.3"
+    },
+    {
+      "path": "packages/agent/package.json",
+      "kind": "package.json",
+      "name": "@earendil-works/pi-agent-core",
+      "version": "0.80.10"
+    },
+    {
+      "path": "packages/ai/package.json",
+      "kind": "package.json",
+      "name": "@earendil-works/pi-ai",
+      "version": "0.80.10"
+    },
+    {
+      "path": "packages/coding-agent/examples/extensions/custom-provider-anthropic/package.json",
+      "kind": "package.json",
+      "name": "pi-extension-custom-provider-anthropic",
+      "version": "0.80.10"
+    },
+    {
+      "path": "packages/coding-agent/examples/extensions/custom-provider-gitlab-duo/package.json",
+      "kind": "package.json",
+      "name": "pi-extension-custom-provider-gitlab-duo",
+      "version": "0.80.10"
+    },
+    {
+      "path": "packages/coding-agent/examples/extensions/gondolin/package.json",
+      "kind": "package.json",
+      "name": "pi-extension-gondolin",
+      "version": "0.80.10"
+    },
+    {
+      "path": "packages/coding-agent/examples/extensions/sandbox/package.json",
+      "kind": "package.json",
+      "name": "pi-extension-sandbox",
+      "version": "1.10.10"
+    },
+    {
+      "path": "packages/coding-agent/examples/extensions/with-deps/package.json",
+      "kind": "package.json",
+      "name": "pi-extension-with-deps",
+      "version": "0.80.10"
+    },
+    {
+      "path": "packages/coding-agent/install-lock/package.json",
+      "kind": "package.json",
+      "name": "@earendil-works/pi-coding-agent-install",
+      "version": "0.80.10"
+    },
+    {
+      "path": "packages/coding-agent/package.json",
+      "kind": "package.json",
+      "name": "@earendil-works/pi-coding-agent",
+      "version": "0.80.10"
+    },
+    {
+      "path": "packages/orchestrator/package.json",
+      "kind": "package.json",
+      "name": "@earendil-works/pi-orchestrator",
+      "version": "0.80.10"
+    },
+    {
+      "path": "packages/tui/package.json",
+      "kind": "package.json",
+      "name": "@earendil-works/pi-tui",
+      "version": "0.80.10"
+    }
+  ],
+  "package_managers": [
+    "npm"
+  ],
+  "timeline": {
+    "first_commit_at": "2026-07-20T09:09:56+02:00",
+    "last_commit_at": "2026-07-20T14:03:33+02:00",
+    "shallow_clone": true,
+    "last_file_modified_at": "2026-07-20T12:35:49Z",
+    "last_core_file_modified_at": "2026-07-20T12:35:24Z",
+    "local_arrival_at": "2026-06-05T12:44:36Z",
+    "local_arrival_source": "git_dir_birthtime",
+    "local_arrival_approximate": true
+  },
+  "totals": {
+    "file_count": 1090,
+    "size_bytes": 48544442,
+    "scope": "excluding_ignored_dirs"
+  },
+  "ignored_dirs": [
+    ".git",
+    ".next",
+    ".pnpm-store",
+    ".venv",
+    ".wake-project",
+    ".yarn",
+    "__pycache__",
+    "bower_components",
+    "build",
+    "dist",
+    "node_modules",
+    "target",
+    "venv"
+  ],
+  "manifest_parse_errors": [],
+  "nested_repos": [],
+  "warnings": [
+    {
+      "code": "shallow_clone",
+      "severity": "info",
+      "message": "Shallow clone: first_commit_at may be unreliable"
+    }
+  ],
+  "scan_completeness": {
+    "level": "partial",
+    "reasons": [
+      "shallow_clone"
+    ]
+  }
+}
