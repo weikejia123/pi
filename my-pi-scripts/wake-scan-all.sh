@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # wake-scan-all.sh — 全盘扫描：对所有含 .wake-project 的项目调用 wake-base-llm.sh
-# 用法: ./wake-scan-all.sh [--force]
-#   --force  重新分析已有 base-llm.json 的项目（默认跳过已完成的）
+# 用法: ./wake-scan-all.sh [--rebuild]
+#   --rebuild  重新分析已有 base-llm.json 的项目（默认跳过已完成的）
 set -euo pipefail
 
 # ─── 固化配置 ─────────────────────────────────────────────────────────────────
@@ -19,7 +19,7 @@ SKIP_DIRS="node_modules .venv venv __pycache__ target build dist .hg .svn .git"
 
 # ─── 参数 ─────────────────────────────────────────────────────────────────────
 FORCE=false
-[[ "${1:-}" == "--force" ]] && FORCE=true
+[[ "${1:-}" == "--rebuild" ]] && FORCE=true
 
 # ─── 构建 find prune 表达式 ───────────────────────────────────────────────────
 PRUNE=""

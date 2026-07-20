@@ -78,8 +78,10 @@ PROMPT="当前时间: $(date '+%Y-%m-%d %H:%M:%S %Z')
 - identity.type 必须是枚举值之一
 - confidence 为 0-1 浮点数
 - critical_paths ≤ 5 个，只列最核心的
-- domains ≤ 5 个
-- key_dependencies ≤ 5 个，选最核心的非 dev 依赖
+- critical_paths 的 role 必须解释为什么这个路径关键，而非描述路径内容
+- domains ≤ 5 个，只包含业务领域或功能特征，禁止包含项目结构描述（如 monorepo、microservices、monolith）
+- key_dependencies ≤ 5 个，挑最有辨识度的框架级依赖，非 dev 依赖
+- purpose_summary 中如果项目是 CLI，应说明安装方式和主要命令
 - framework: monorepo 或无明确框架填 null
 - 只输出纯 JSON"
 
