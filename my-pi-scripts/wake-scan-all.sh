@@ -74,11 +74,13 @@ for proj in "${PROJECTS[@]}"; do
 
   printf "[%d/%d] → %s\n" "$IDX" "$TOTAL" "$NAME"
 
+  T0=$(date +%s)
   if "$ANALYZE_SCRIPT" "$proj" >/dev/null 2>&1; then
     OK=$((OK + 1))
+    printf "[%d/%d] ✓ %s (%ds)\n" "$IDX" "$TOTAL" "$NAME" "$(( $(date +%s) - T0 ))"
   else
     FAIL=$((FAIL + 1))
-    printf "[%d/%d] ✗ %s 失败\n" "$IDX" "$TOTAL" "$NAME"
+    printf "[%d/%d] ✗ %s 失败 (%ds)\n" "$IDX" "$TOTAL" "$NAME" "$(( $(date +%s) - T0 ))"
   fi
 done
 
