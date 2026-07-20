@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# wake-analyze.sh — 调用 pi agent 分析项目，生成 base-llm.json
-# 用法: ./wake-analyze.sh <project_dir>
+# wake-base-llm.sh — 调用 pi agent 分析项目，生成 base-llm.json
+# 用法: ./wake-base-llm.sh <project_dir>
 set -euo pipefail
 
 # ─── 固化配置（按需修改） ─────────────────────────────────────────────────────
@@ -8,6 +8,23 @@ PI_BIN="pi"
 MODEL="ollama/qwen3.6:35b"
 MAX_RETRIES=3
 TOOLS="read,ls,find"
+LOG_DIR="/Users/weikejia/.wake/logs"
+
+# ─── 日志 ─────────────────────────────────────────────────────────────────────
+mkdir -p "$LOG_DIR"
+LOG_FILE="$LOG_DIR/wake-base-llm.jsonl"
+
+log() {
+  local event="$1" detail="${2:-}"
+  jq -cn \
+    --arg ts "$(date '+%Y-%m-%dT%H:%M:%S%z')" \
+    --arg event "$event" \
+    --arg project "${PROJECT_DIR:-}" \
+    --arg model "$MODEL" \
+    --arg detail "$detail" \
+    '{ts: $ts, event: $event, project: $project, model: $model} + (if $detail != "" then {detail: $detail} else {} end)' \
+    >> "$LOG_FILE"
+}
 
 # ─── 参数 ─────────────────────────────────────────────────────────────────────
 PROJECT_DIR="${1:-}"
@@ -22,11 +39,14 @@ BASE_LLM="$WAKE_DIR/base-llm.json"
 # ─── 门卫：.wake-project 不存在则跳过 ─────────────────────────────────────────
 if [[ ! -d "$WAKE_DIR" ]]; then
   echo "⊘ 跳过: $PROJECT_DIR 无 .wake-project（未扫描）"
+  log "skip" "no .wake-project directory"
   exit 0
 fi
 
 # ─── Prompt ───────────────────────────────────────────────────────────────────
-PROMPT="你正在分析位于 ${PROJECT_DIR} 的项目。
+PROMPT="当前时间: $(date '+%Y-%m-%d %H:%M:%S %Z')
+
+你正在分析位于 ${PROJECT_DIR} 的项目。
 
 该项目有一个 .wake-project/ 目录，里面是程序扫描生成的结构化 JSON 数据（项目元信息、语言分布、依赖列表、关键文件等）。
 请先读取 .wake-project/ 下的 JSON 文件，再结合项目目录结构（README、源码布局等），全面理解这个项目。
@@ -68,7 +88,9 @@ echo "→ 分析: $PROJECT_DIR (model=$MODEL)"
 
 for i in $(seq 1 "$MAX_RETRIES"); do
   RAW="$(cd "$PROJECT_DIR" && "$PI_BIN" -p --model "$MODEL" --tools "$TOOLS" --no-session --no-context-files "$PROMPT" 2>/dev/null)" || {
-    echo "⚠ 第${i}次: pi 执行失败" >&2; sleep 2; continue
+    echo "⚠ 第${i}次: pi 执行失败" >&2
+    log "error" "attempt $i: pi execution failed"
+    sleep 2; continue
   }
 
   # 剥离可能的代码围栏（macOS/Linux 兼容）
@@ -88,16 +110,19 @@ for i in $(seq 1 "$MAX_RETRIES"); do
     (.critical_paths | type == "array" and length <= 5)
   ' >/dev/null 2>&1; then
     # 补元数据，原子写入
-    jq -n --arg ts "$(date -u +%Y-%m-%dT%H:%M:%SZ)" --argjson body "$OUTPUT" \
+    jq -n --arg ts "$(date '+%Y-%m-%dT%H:%M:%S%z')" --argjson body "$OUTPUT" \
       '$body + {_meta: {schema_version: 1, analyzed_at: $ts}}' > "$BASE_LLM.tmp"
     mv "$BASE_LLM.tmp" "$BASE_LLM"
     echo "✓ 完成: $BASE_LLM"
+    log "success" "output: $BASE_LLM"
     exit 0
   fi
 
   echo "⚠ 第${i}次: 输出无效" >&2
+  log "error" "attempt $i: invalid JSON output"
   sleep 2
 done
 
 echo "✗ 失败: ${MAX_RETRIES}次均未获得有效输出" >&2
+log "error" "all $MAX_RETRIES attempts failed"
 exit 1
