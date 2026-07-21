@@ -18,9 +18,10 @@
  * 9. Push main and the tag to trigger CI publishing
  */
 
-import { execSync } from "child_process";
-import { readFileSync, writeFileSync, readdirSync, existsSync } from "fs";
-import { join } from "path";
+import { execSync } from "node:child_process";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
+import { findPackageDirectories } from "./package-workspaces.mjs";
 
 const RELEASE_TARGET = process.argv[2];
 const BUMP_TYPES = new Set(["major", "minor", "patch"]);
@@ -97,10 +98,8 @@ function bumpOrSetVersion(target) {
 }
 
 function getChangelogs() {
-	const packagesDir = "packages";
-	const packages = readdirSync(packagesDir);
-	return packages
-		.map((pkg) => join(packagesDir, pkg, "CHANGELOG.md"))
+	return findPackageDirectories()
+		.map((directory) => join(directory, "CHANGELOG.md"))
 		.filter((path) => existsSync(path));
 }
 
@@ -167,6 +166,7 @@ console.log();
 // 4. Regenerate release artifacts
 console.log("Regenerating release artifacts...");
 run("npm run generate:models");
+run("npm run check:model-data");
 run("npm run shrinkwrap:coding-agent");
 run("npm run install-lock:coding-agent");
 console.log();
