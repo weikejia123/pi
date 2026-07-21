@@ -96,7 +96,7 @@ for i in $(seq 1 "$MAX_RETRIES"); do
   RAW="$(cd "$PROJECT_DIR" && "$PI_BIN" -p --model "$MODEL" --tools "$TOOLS" --no-session --no-context-files "$PROMPT" 2>/dev/null)" || {
     echo "⚠ 第${i}次: pi 执行失败" >&2
     log "error" "attempt $i: pi execution failed"
-    sleep 2; continue
+    sleep 180; continue
   }
 
   # 剥离可能的代码围栏（macOS/Linux 兼容）
@@ -130,7 +130,7 @@ for i in $(seq 1 "$MAX_RETRIES"); do
 
   echo "⚠ 第${i}次: 输出无效" >&2
   log "error" "attempt $i: invalid JSON output"
-  sleep 2
+  sleep 180
 done
 
 echo "✗ 失败: ${MAX_RETRIES}次均未获得有效输出" >&2
