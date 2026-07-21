@@ -43,6 +43,10 @@ if [[ ! -d "$WAKE_DIR" ]]; then
   exit 0
 fi
 
+# ─── 归属标识：project_id 源自 project.json，scan_id 引用当前 scan.json ───────
+PROJECT_ID="$(jq -r '.project_id // ""' "$WAKE_DIR/project.json" 2>/dev/null || true)"
+SCAN_ID="$(jq -r '.scan_id // ""' "$WAKE_DIR/scan.json" 2>/dev/null || true)"
+
 # ─── Prompt ───────────────────────────────────────────────────────────────────
 PROMPT="当前时间: $(date '+%Y-%m-%d %H:%M:%S %Z')
 
@@ -111,9 +115,13 @@ for i in $(seq 1 "$MAX_RETRIES"); do
     (.tech_summary.primary_language | type == "string") and
     (.critical_paths | type == "array" and length <= 5)
   ' >/dev/null 2>&1; then
-    # 补元数据，原子写入
-    jq -n --arg ts "$(date '+%Y-%m-%dT%H:%M:%S%z')" --argjson body "$OUTPUT" \
-      '$body + {_meta: {schema_version: 1, analyzed_at: $ts}}' > "$BASE_LLM.tmp"
+    # 补元数据，原子写入；_meta 记录本分析基于哪个项目的哪次扫描
+    jq -n \
+      --arg ts "$(date '+%Y-%m-%dT%H:%M:%S%z')" \
+      --arg pid "$PROJECT_ID" \
+      --arg sid "$SCAN_ID" \
+      --argjson body "$OUTPUT" \
+      '$body + {_meta: {schema_version: 1, analyzed_at: $ts, project_id: $pid, scan_id: $sid}}' > "$BASE_LLM.tmp"
     mv "$BASE_LLM.tmp" "$BASE_LLM"
     echo "✓ 完成: $BASE_LLM"
     log "success" "output: $BASE_LLM"

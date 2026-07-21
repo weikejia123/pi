@@ -55,6 +55,10 @@ if [[ ! -f "$BASE_LLM" ]]; then
   exit 0
 fi
 
+# ─── 归属标识：project_id 源自 project.json，scan_id 引用当前 scan.json ───────
+PROJECT_ID="$(jq -r '.project_id // ""' "$WAKE_DIR/project.json" 2>/dev/null || true)"
+SCAN_ID="$(jq -r '.scan_id // ""' "$WAKE_DIR/scan.json" 2>/dev/null || true)"
+
 # ─── 采集动态上下文（注入 prompt） ────────────────────────────────────────────
 GIT_LOG="$(cd "$PROJECT_DIR" && git log --oneline -10 2>/dev/null || echo '(非 git 仓库或无提交)')"
 GIT_STATUS="$(cd "$PROJECT_DIR" && git diff --stat 2>/dev/null | tail -5 || echo '')"
@@ -131,12 +135,14 @@ for i in $(seq 1 "$MAX_RETRIES"); do
     (.context_hint.workflow_stage | type == "string") and
     (.attention_points | type == "array" and length <= 3)
   ' >/dev/null 2>&1; then
-    # 补元数据，原子写入
+    # 补元数据，原子写入；based_on 记录本分析基于哪个项目的哪次扫描
     jq -n \
       --arg ts "$(date '+%Y-%m-%dT%H:%M:%S%z')" \
       --arg head "$GIT_HEAD" \
+      --arg pid "$PROJECT_ID" \
+      --arg sid "$SCAN_ID" \
       --argjson body "$OUTPUT" \
-      '$body + {schema_version: 1, generated_at: $ts, based_on: {head: $head}}' \
+      '$body + {schema_version: 1, generated_at: $ts, based_on: {head: $head, project_id: $pid, scan_id: $sid}}' \
       > "$AGENT_JSON.tmp"
     mv "$AGENT_JSON.tmp" "$AGENT_JSON"
     echo "✓ 完成: $AGENT_JSON"
