@@ -1,9 +1,9 @@
 {
-  "notes": "",
-  "project_id": "wp-19ea0d5f386bf546",
-  "related_projects": [],
-  "rules": [],
-  "schema_version": "5",
+  "schema_version": "8",
+  "project_id": "019f8451-b773-7c91-a3fc-3a1336d5cc87",
   "summary": "",
-  "tags": []
+  "tags": [],
+  "rules": [],
+  "notes": "",
+  "related_projects": []
 }

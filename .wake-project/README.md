@@ -28,14 +28,14 @@
 每个文件自包含归属标识，可独立溯源：
 
 - `project_id`：唯一生成处是 **project.json**，其余文件全部是透传/引用
-- `scan_id`：唯一生成处是 **scan.json**（每次 scan 新建，`sc-` 前缀），其余文件全部是引用
+- `scan_id`：唯一生成处是 **scan.json**（每次 scan 新建），其余文件全部是引用
 - declared.json / runtime.json 的 `project_id` 由程序在创建时写入；缺失时 scan 会**回填该字段**（只补 id，其余内容绝不改动）
 - LLM 产物（base-llm.json、agent.json）在 `_meta` / `based_on` 中引用两者，声明语义基于哪次扫描
 
 ## project.json
 
 - `schema_version`：结构版本
-- `project_id`：由项目根路径哈希生成的稳定 ID（`wp-` 前缀）
+- `project_id`：UUID v7（时间有序），创建 project.json 时生成一次，之后稳定不变
 - `display_name`：项目目录名
 - `root_path`：项目根的 canonical 绝对路径
 - `created_at` / `updated_at`：RFC 3339 时间戳；`updated_at` 每次 scan 时刷新
@@ -45,7 +45,7 @@
 由 `wake-project scan` 生成，全部为确定性事实（程序+规则，无 LLM 推断）。
 
 - `project_id`：项目 ID（透传自 project.json）
-- `scan_id`：本次扫描 ID（`sc-` 前缀，每次 scan 新建；scan.json 是唯一生成处）
+- `scan_id`：本次扫描 ID（UUID v7，每次 scan 新建；scan.json 是唯一生成处）
 - `scanned_at`：本次扫描时间
 - `duration_ms`：本次扫描耗时（毫秒）
 - `is_git_repo`：是否拥有**自己的** `.git`（父目录仓库不算；worktree/子模块的 `.git` 文件算）。

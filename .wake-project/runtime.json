@@ -1,8 +1,8 @@
 {
-  "caches": {},
-  "last_event_offset": null,
+  "schema_version": "8",
+  "project_id": "019f8451-b773-7c91-a3fc-3a1336d5cc87",
   "pic": null,
-  "project_id": "wp-19ea0d5f386bf546",
   "recent_topics": [],
-  "schema_version": "5"
+  "last_event_offset": null,
+  "caches": {}
 }
