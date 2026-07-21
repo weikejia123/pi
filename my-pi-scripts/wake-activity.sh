@@ -41,7 +41,7 @@ ACTIVITY="$WAKE_DIR/activity-llm.json"
 if [[ ! -d "$WAKE_DIR" ]]; then
   echo "⊘ 跳过: $PROJECT_DIR 无 .wake-project（未扫描）"
   log "skip" "no .wake-project directory"
-  exit 0
+  exit 2
 fi
 
 # ─── git 封装（关 quotepath，避免中文路径转义） ───────────────────────────────
@@ -50,7 +50,7 @@ gitc() { git -c core.quotepath=false -C "$PROJECT_DIR" "$@"; }
 if ! gitc rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   echo "⊘ 跳过: $PROJECT_DIR 非 git 仓库"
   log "skip" "not a git repo"
-  exit 0
+  exit 2
 fi
 
 # ─── 归属标识 ─────────────────────────────────────────────────────────────────
@@ -87,7 +87,7 @@ fi
 if [[ -z "$BASELINE" ]]; then
   echo "⊘ 跳过: $PROJECT_DIR 无可用 baseline（无 upstream/origin/main）无法定义我们的改动"
   log "skip" "no baseline to define our commits"
-  exit 0
+  exit 2
 fi
 
 # ─── upstream_sync（条件字段：仅 fork 场景） ──────────────────────────────────
@@ -140,7 +140,7 @@ echo "  共 ${TOTAL} 条 commit（${FIRST} ~ ${LAST}）"
 if [[ "$TOTAL" == "0" ]]; then
   echo "⊘ 跳过: 无独有 commit，activity 无意义"
   log "skip" "no unique commits over baseline"
-  exit 0
+  exit 2
 fi
 
 # ─── LLM 层：基于 commit 清单做主题归纳 ───────────────────────────────────────
