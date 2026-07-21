@@ -31,7 +31,7 @@
 | `pi-agent-core` | `@earendil-works/pi-agent-core` | ~15.7K 行 | Agent 运行时核心（循环/状态/工具） |
 | `pi-coding-agent` | `@earendil-works/pi-coding-agent` | **~120K 行** | 交互式编程 Agent CLI（主程序） |
 | `pi-tui` | `@earendil-works/pi-tui` | ~27.6K 行 | 差分渲染终端 UI 库 |
-| `pi-orchestrator` | `@earendil-works/pi-orchestrator` | ~2K 行 | 多 Agent 实例编排管理 |
+| `pi-server` | `@earendil-works/pi-server` | ~2K 行 | 多 Agent 实例编排管理（原 pi-orchestrator）|
 
 **总量：~238K 行 TypeScript** — 与 Claude Code 相当的体量级别。
 
@@ -167,7 +167,7 @@ class TUI {
 这是 Pi 的一个独特特性——
 
 ```typescript
-// packages/orchestrator/src/supervisor.ts
+// packages/server/src/supervisor.ts
 class OrchestratorSupervisor {
   private readonly liveInstances = new Map<string, LiveInstance>();
   // 管理多个 RPC Agent 实例
@@ -317,7 +317,7 @@ Pi 的供应链安全实践值得学习：
 | Compaction（上下文压缩） | `packages/coding-agent/src/core/compaction/` | 解决长上下文问题的机制 |
 | 差分渲染 TUI | `packages/tui/src/tui.ts` | 如果要在终端里做复杂 UI，这是很好的参考 |
 | Extension 系统 | `packages/coding-agent/src/core/extensions/` | 可扩展性是所有 Agent 框架的核心能力 |
-| Orchestrator（多实例） | `packages/orchestrator/src/` | Hermes Gateway 可以借鉴多实例管理思路 |
+| Server（多实例） | `packages/server/src/` | Hermes Gateway 可以借鉴多实例管理思路 |
 
 ### "慎读"的部分
 
