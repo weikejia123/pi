@@ -103,6 +103,56 @@ ls:     event.toolName: "ls"     → input: { path?, limit? }
 | `project_trust` | 项目信任检查时 | 可返回 yes/no/undecided | 自动信任策略 |
 | `resources_discover` | session_start 后 | 可提供额外的 skill/prompt/theme 路径 | 动态资源发现 |
 
+## Hook 能力分类
+
+以下按照"能否修改消息/数据"和"能否阻止执行/终止工作"两个维度分类。
+
+### A. 可以修改/注入消息或数据的 Hook（12 个）
+
+| 事件 | 可修改什么 | 修改方式 |
+|------|-----------|---------|
+| `context` | 完整的 LLM 消息列表 | 返回 `{ messages: AgentMessage[] }`，**替换整个消息列表** |
+| `before_agent_start` | 注入自定义消息 + 替换 system prompt | 返回 `{ message, systemPrompt }`，消息注入到 LLM 上下文；systemPrompt 替换整轮提示词 |
+| `message_end` | 最终消息体 | 返回 `{ message: AgentMessage }`，替换结束消息（保留原有 role） |
+| `tool_call` | 工具调用参数 | **原地修改** `event.input`（如修改 bash 命令、read 路径），影响后续处理器和实际执行 |
+| `tool_result` | 工具执行结果 | 返回 `{ content?, details?, isError? }`，替换输出内容、元数据或错误状态 |
+| `input` | 用户输入文本/图片 | 返回 `{ action: "transform", text, images }`，修改后传给 Agent |
+| `before_provider_request` | LLM Provider 请求 payload | 返回替换后的 payload |
+| `before_provider_headers` | HTTP 请求头 | **原地修改** `headers` 对象，可增删 Header |
+| `after_provider_response` | —（只读） | 仅记录响应状态码和头信息，不可修改 |
+| `user_bash` | bash 执行方式和结果 | 返回 `{ operations }` 替换执行后端，或 `{ result }` 直接替代执行结果 |
+| `session_before_compact` | 压缩策略和指令 | 返回 `{ compaction: CompactionResult }` 注入自定义压缩结果；或 `{ cancel: true }` 阻止压缩 |
+| `session_before_tree` | 分支摘要 | 返回 `{ summary }` 注入自定义摘要文本 |
+
+### B. 可以阻止执行/终止工作的 Hook（9 个）
+
+| 事件 | 阻止方式 | 效果 |
+|------|---------|------|
+| `tool_call` | 返回 `{ block: true, reason: "..." }` | **阻止该特定工具的本次执行**。LLM 收到错误信息继续保持本轮，不终止整个 Agent 循环 |
+| `input` | 返回 `{ action: "handled" }` | 用户输入被**完全拦截**，不进入 Agent 处理。pi 继续等待下一条消息 |
+| `session_before_switch` | 返回 `{ cancel: true }` | **取消 session 切换**，保持当前 session |
+| `session_before_fork` | 返回 `{ cancel: true }` | **取消 fork 操作**，不创建新 session |
+| `session_before_compact` | 返回 `{ cancel: true }` | **取消上下文压缩** |
+| `session_before_tree` | 返回 `{ cancel: true }` | **取消会话树导航** |
+| `project_trust` | 返回 `{ trusted: "no" }` | 拒绝**项目信任**（pi 可能限制文件访问或弹出确认） |
+| `agent_end` | — | 只读事件，不能阻止。但可以通过 emit 副作用影响后续状态 |
+| `agent_settled` | — | 只读事件，不能阻止。Agent 循环已完全结束 |
+
+### 典型拦截场景对照
+
+| 你想要的效果 | 用哪个 Hook |
+|-------------|-----------|
+| 修改用户输入内容后再给 Agent | `input` → `action: "transform"` |
+| 完全拦截用户消息，Agent 不处理 | `input` → `action: "handled"` |
+| 阻止危险的 bash 命令 | `tool_call` → `block: true`（判断 `toolName === "bash"`）|
+| 修改文件读写路径（重定向） | `tool_call` → 原地修改 `event.input.path` |
+| 在 LLM 请求前注入一条系统指令 | `context` → 返回修改后的 `messages` |
+| 修改 LLM 回复内容 | `message_end` → 替换 `message` |
+| 替换工具输出结果（mock） | `tool_result` → 返回 `{ content, details }` |
+| 注入自定义的 bash 执行引擎（如 SSH） | `user_bash` → 返回 `{ operations }` |
+| 阻止 session 被切换 | `session_before_switch` → `{ cancel: true }` |
+| 为压缩提供自定义摘要 | `session_before_compact` → `{ compaction }` 或 `session_before_tree` → `{ summary }` |
+
 ## 扩展提供的其他功能
 
 ### 注册工具（registerTool）
