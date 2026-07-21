@@ -2,54 +2,58 @@
   "identity": {
     "type": "cli_tool",
     "confidence": 0.95,
-    "rationale": "发布为 npm CLI @earendil-works/pi-coding-agent 的交互式 AI 编码代理，以终端命令行交互为核心形态",
-    "one_liner": "Pi AI 编码代理的运行时引擎与可自扩展 CLI 工具链",
-    "purpose_summary": "Pi Agent Harness 是一个可自扩展的 AI 编程代理框架，提供统一的 LLM API、代理运行时环境和终端 UI。开发者通过 npm CLI (@earendil-works/pi-coding-agent) 在终端中与 OpenAI/Anthropic/Google/Mistral 等 LLM 交互完成编码任务，同时支持通过 Gondolin、Sandbox 等扩展实现安全的沙箱化部署。"
+    "rationale": "项目核心是交互式编码代理CLI（@earendil-works/pi-coding-agent），通过终端提供AI辅助编程功能，包含TUI界面和可编程扩展系统。",
+    "one_liner": "Pi Agent Harness — 可扩展的交互式编码代理CLI，集成多提供商LLM支持与终端TUI界面",
+    "purpose_summary": "Pi是一个智能编码代理框架，允许开发者在终端中与AI进行交互式编程。它提供统一的LLM API（支持OpenAI、Anthropic、Google等）、可扩展的工具调用系统和实时差分渲染的终端UI。用户通过CLI或TUI与代理对话，实现代码编写、文件操作和自动化任务。"
   },
   "domains": [
-    "ai_coding_agent",
-    "llm_integration",
-    "monorepo",
-    "terminal_ui",
-    "developer_tools"
+    "AI辅助编程",
+    "LLM大语言模型",
+    "终端交互",
+    "开发者工具链"
   ],
   "tech_summary": {
-    "natural": "基于 TypeScript 的 npm monorepo，使用 TypeScript 5.9 + esbuild 构建，Node.js 运行时。核心依赖包括 @anthropic-ai/sdk、openai、@google/genai 等多 LLM 提供商 SDK，以及 typebox（类型校验）、yaml（配置解析）。测试用 Vitest，代码规范用 Biome。",
+    "natural": "TypeScript monorepo，以esbuild为构建工具，使用TypeBox做类型安全校验，YAML处理配置文件；核心功能依赖OpenAI/Anthropic/Google SDK对接多模型后端",
     "primary_language": "TypeScript",
     "runtime": "Node.js",
     "framework": null,
     "key_dependencies": [
       "@anthropic-ai/sdk",
-      "openai",
       "@google/genai",
+      "openai",
       "typebox",
       "yaml"
     ]
   },
   "critical_paths": [
     {
-      "path": "packages/coding-agent",
-      "role": "编码代理 CLI 核心入口，包含交互式终端、会话管理、工具调用与扩展系统",
+      "path": "packages/coding-agent/package.json",
+      "role": "CLI主包入口，聚合agent-core、pi-ai、pi-tui等核心子包，是项目的最终发布产物和分发渠道",
       "stability": "high"
     },
     {
-      "path": "packages/agent",
-      "role": "Agent 运行时引擎，负责工具调用编排、状态管理和 LLM 对话循环",
+      "path": "packages/ai/package.json",
+      "role": "统一多LLM供应商API封装层，是所有AI交互能力的基础依赖，屏蔽不同模型提供商的差异",
       "stability": "high"
     },
     {
-      "path": "packages/ai",
-      "role": "统一多提供商 LLM API 抽象层，支持 OpenAI/Anthropic/Google/Mistral/Bedrock",
+      "path": "packages/agent/package.json",
+      "role": "代理运行时核心，包含工具调用和状态管理逻辑，是整个agent harness的行为中枢",
+      "stability": "high"
+    },
+    {
+      "path": "packages/tui/package.json",
+      "role": "终端UI渲染引擎，提供差分增量更新机制的交互式CLI界面，是用户与代理交互的视觉层",
       "stability": "moderate"
     },
     {
-      "path": "packages/tui",
-      "role": "终端 UI 库，提供差量渲染与交互式界面组件",
+      "path": "packages/orchestrator/package.json",
+      "role": "任务编排器，负责协调多个agent实例的工作流调度，是整个系统的控制平面",
       "stability": "moderate"
     }
   ],
   "_meta": {
     "schema_version": 1,
-    "analyzed_at": "2026-07-21T05:41:08+0800"
+    "analyzed_at": "2026-07-21T06:27:03+0800"
   }
 }
