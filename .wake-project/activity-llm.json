@@ -4,13 +4,13 @@
   "based_on": {
     "project_id": "019f8451-b773-7c91-a3fc-3a1336d5cc87",
     "scan_id": "019f8451-b9d6-7bc0-809f-5359a33544d9",
-    "head": "4a431b108"
+    "head": "741f0b37d"
   },
-  "analyzed_at": "2026-07-22T05:06:16+0800",
+  "analyzed_at": "2026-07-22T05:49:28+0800",
   "upstream_sync": {
     "remote": "upstream",
     "upstream_default_branch": "main",
-    "ahead_count": 22,
+    "ahead_count": 23,
     "behind_count": 0,
     "upstream_latest": {
       "sha": "c901d9a87",
@@ -20,6 +20,14 @@
     "note": "behind 基于最近一次 fetch 的 ref，非实时"
   },
   "our_commits": [
+    {
+      "sha": "741f0b37d",
+      "at": "2026-07-22",
+      "author": "weikejia",
+      "message": "feat: 新增 wake-activity.sh 生成 activity-llm.json 状态档案",
+      "files_changed": 2,
+      "scope": "my-pi-scripts"
+    },
     {
       "sha": "4a431b108",
       "at": "2026-07-22",
@@ -200,50 +208,45 @@
   "summary": {
     "themes": [
       {
-        "theme": "文档体系与架构设计分析",
-        "commits": 10,
+        "theme": "wake-project CLI 工具链建设",
+        "commits": 12,
         "representative": [
-          "a85baab6a",
-          "9dbd42329",
-          "9877397f2",
-          "48d4b0a8a"
-        ],
-        "summary": "系统梳理 hook 机制配置、wake-project 状态层设计、LLM payload 结构等核心架构问题，完善文档体系"
-      },
-      {
-        "theme": "wake-scan-all LLM 批量分析工具链",
-        "commits": 8,
-        "representative": [
-          "7e9149d7a",
-          "f34ea646d",
+          "741f0b37d",
           "9f7c63215",
-          "3a1420a46"
+          "7e9149d7a",
+          "74a8ee478"
         ],
-        "summary": "从无到有一系列脚本迭代：新建 scan 框架、重命名为 wake-base-llm、添加 JSONL 日志与元数据追踪，逐步完善 LLM 批量分析能力"
+        "summary": "从分析脚本创建、命名优化、批处理扫描到状态档案生成的完整 CLI 工具链迭代，覆盖唤醒脚本体系的核心能力扩展与调优"
       },
       {
-        "theme": ".wake-project 自动化更新",
-        "commits": 3,
+        "theme": "项目知识文档沉淀",
+        "commits": 7,
         "representative": [
+          "9dbd42329",
+          "68273c62d",
+          "a85baab6a"
+        ],
+        "summary": "系统化整理 Pi hooks 架构、LLM payload、ollama 配置及 wake-project 设计缺口等核心概念文档，为后续开发提供知识基础"
+      },
+      {
+        "theme": "scan 数据自动化与基础部署",
+        "commits": 4,
+        "representative": [
+          "ca2900aa7",
           "37398b228",
-          "4b6f210d2",
-          "ca400aa7"
-        ],
-        "summary": "自动化工具或配置扫描结果持续更新"
-      },
-      {
-        "theme": "周边基础设施与分支管理",
-        "commits": 3,
-        "representative": [
-          "1aa37db72",
-          "76857dd34",
           "181351b19"
         ],
-        "summary": "失败间隔等运行参数调整、分支合并与部署脚本维护，属于环境配置层面改动"
+        "summary": "wake-project scan 数据的初始化与自动增量更新，以及 wkj-dev 分支部署脚本的创建和 main 合并"
       }
     ],
-    "one_liner": "本阶段工作完全聚焦于文档体系建设和 wake 系列分析工具链开发（文档 + 脚本），未涉及 packages/ 下核心代码逻辑的任何变动",
-    "total_commits": 22,
+    "one_liner": "在 wake-project 周边建设工具链体系：以 my-pi-scripts 为核心的 CLI 扫描分析流水线迭代，配合架构文档知识沉淀与 scan 数据自动化",
+    "delta_since_last_scan": {
+      "summary": "无新增 commit；工作区有 4 处未提交改动（activity-llm.json 状态更新、活动脚本调整、设计文档修订、wake-state-agent.sh 删除），属上次分析结果的微调延续。",
+      "previous_analyzed_at": "2026-07-22T05:40:47+0800",
+      "new_commits_count": 0,
+      "dirty_files_count": 4
+    },
+    "total_commits": 23,
     "span": {
       "first_at": "2026-07-20",
       "last_at": "2026-07-22"

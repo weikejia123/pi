@@ -82,7 +82,13 @@ agent 从"资深开发回归认知恢复路径"出发，列出 14 项缺口，�
         "summary": "..."
       }
     ],
-    "one_liner": "..."
+    "one_liner": "...",
+    "delta_since_last_scan": {
+      "previous_analyzed_at": "...",
+      "new_commits_count": 2,
+      "dirty_files_count": 3,
+      "summary": "自上次扫描以来新增改动的一句话总结"
+    }
   }
 }
 ```
@@ -94,6 +100,7 @@ agent 从"资深开发回归认知恢复路径"出发，列出 14 项缺口，�
 | `upstream_sync` | ahead/behind 计数 + 上游最新一条 | 程序（git） |
 | `our_commits` | 倒序 commit 清单 + scope 自动推断 | 程序（`git log upstream/main..HEAD` + 改动目录前缀） |
 | `summary.themes` / `one_liner` | 主题归类 + 一句话总结 | LLM（基于 commit 清单生成） |
+| `summary.delta_since_last_scan` | 与上次扫描的增量总结 | 程序算 sha 差集 + LLM 总结（无上次扫描或无新增时为 `null` / 硬编码） |
 
 ### 关键设计点
 
@@ -101,6 +108,8 @@ agent 从"资深开发回归认知恢复路径"出发，列出 14 项缺口，�
 2. `scope` 自动推断：程序读 `git log --name-only`，取每个 commit 改动文件的一级目录频次（packages 下取二级）。
 3. `behind` 标注近似性：扫描时不强制 fetch，基于已有 ref，`note` 字段说明。
 4. 倒序 + themes 双视图：`our_commits` 是流水（倒序），`summary.themes` 是语义聚合——搁置回来先看 `one_liner` 和 `themes`，要细节再翻 `our_commits`。
+5. `delta_since_last_scan` 是**增量头条**：`one_liner` 覆盖从 baseline 起的全弧线，`delta_since_last_scan` 聚焦"自上次扫描以来"的新增——这是搁置回归时信号密度最高的字段。程序用 sha 差集计算新增 commit + `git status --porcelain` 采集工作区未提交改动（无 commit 不代表无文件变动），LLM 只做语义总结。无上次扫描时为 `null`；有上次扫描但无新增 commit 且无工作区改动时硬编码"自上次扫描无新增 commit，工作区无改动"；有任一变化时请 LLM 总结。两次扫描间隔可能很短时，提示 agent 如实简短描述，不夸大变化。
+6. **agent 自主读取背景**：不在 PROMPT 内联 base-llm.json 等背景字段，而是用 `--tools "read,ls,find"` 让 agent 按需自主读取 `.wake-project/` 下的 JSON。只做文字提醒（含 prompt 注入边界声明）+ jq 结构校验，不过度限制 agent 的阅读自由度。覆盖写入时若检测到上次扫描结果，提醒 agent 先阅读作为状态延续输入。
 
 ---
 
@@ -186,6 +195,8 @@ scope 推断对**中文路径**出错：git 默认 `core.quotepath` 会把非 AS
 
 ## 七、待办/未决
 
-- [ ] activity-llm.json 是否落盘：本次探讨未落盘，方案与数据已就绪，待用户决定。
-- [ ] scope 推断的中文路径处理：落地脚本须加 `core.quotepath=false`。
+- [x] activity-llm.json 已落盘：脚本 `my-pi-scripts/wake-activity.sh` 实现并测试通过（两次测试：无上次扫描 / 有上次扫描，均产出有效 JSON）。
+- [x] scope 推断的中文路径处理：已加 `git -c core.quotepath=false`。
+- [x] `delta_since_last_scan` 增量字段已实现：程序算 sha 差集 + LLM 总结 + 无新增/无上次扫描的 null 边界。
+- [x] agent 自主读取背景：用 `--tools` + 文字提醒替代内联，附 prompt 注入边界声明。
 - [ ] agent.json 语义层（terminology/relations）仍全空，是独立于 activity 的另一缺口，本次未展开。
