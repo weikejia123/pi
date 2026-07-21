@@ -1,0 +1,252 @@
+{
+  "schema_version": 1,
+  "project_id": "019f8451-b773-7c91-a3fc-3a1336d5cc87",
+  "based_on": {
+    "project_id": "019f8451-b773-7c91-a3fc-3a1336d5cc87",
+    "scan_id": "019f8451-b9d6-7bc0-809f-5359a33544d9",
+    "head": "4a431b108"
+  },
+  "analyzed_at": "2026-07-22T05:06:16+0800",
+  "upstream_sync": {
+    "remote": "upstream",
+    "upstream_default_branch": "main",
+    "ahead_count": 22,
+    "behind_count": 0,
+    "upstream_latest": {
+      "sha": "c901d9a87",
+      "at": "2026-07-21",
+      "message": "docs: audit unreleased changelogs"
+    },
+    "note": "behind 基于最近一次 fetch 的 ref，非实时"
+  },
+  "our_commits": [
+    {
+      "sha": "4a431b108",
+      "at": "2026-07-22",
+      "author": "weikejia",
+      "message": "fix: 补充 base-llm 分析的 prompt 注入边界声明",
+      "files_changed": 1,
+      "scope": "my-pi-scripts"
+    },
+    {
+      "sha": "a85baab6a",
+      "at": "2026-07-22",
+      "author": "weikejia",
+      "message": "docs: 新增 wake-project 状态记录缺口与 activity 层设计探讨",
+      "files_changed": 1,
+      "scope": "my-docs"
+    },
+    {
+      "sha": "1aa37db72",
+      "at": "2026-07-22",
+      "author": "weikejia",
+      "message": "修改失败间隔为180秒",
+      "files_changed": 1,
+      "scope": "my-pi-scripts"
+    },
+    {
+      "sha": "a937c19cf",
+      "at": "2026-07-21",
+      "author": "weikejia",
+      "message": "docs: update orchestrator -> server references after upstream merge (c901d9a87)",
+      "files_changed": 1,
+      "scope": "my-docs"
+    },
+    {
+      "sha": "76857dd34",
+      "at": "2026-07-21",
+      "author": "weikejia",
+      "message": "Merge branch 'main' into wkj-dev",
+      "files_changed": 2,
+      "scope": "(root)"
+    },
+    {
+      "sha": "9877397f2",
+      "at": "2026-07-21",
+      "author": "weikejia",
+      "message": "docs: add global vs project-level hook config with code references",
+      "files_changed": 1,
+      "scope": "my-docs"
+    },
+    {
+      "sha": "4059d5336",
+      "at": "2026-07-21",
+      "author": "weikejia",
+      "message": "docs: add hook capability classification (inject/modify vs block/terminate)",
+      "files_changed": 1,
+      "scope": "my-docs"
+    },
+    {
+      "sha": "37398b228",
+      "at": "2026-07-21",
+      "author": "weikejia",
+      "message": "auto-app-wp: scan update",
+      "files_changed": 8,
+      "scope": ".wake-project"
+    },
+    {
+      "sha": "9dbd42329",
+      "at": "2026-07-21",
+      "author": "weikejia",
+      "message": "docs: add pi hooking system analysis (24 event types + config)",
+      "files_changed": 1,
+      "scope": "my-docs"
+    },
+    {
+      "sha": "2ed4be5d7",
+      "at": "2026-07-21",
+      "author": "weikejia",
+      "message": "auto-app-wp: scan update",
+      "files_changed": 7,
+      "scope": ".wake-project"
+    },
+    {
+      "sha": "3a1420a46",
+      "at": "2026-07-21",
+      "author": "weikejia",
+      "message": "feat: record project_id/scan_id in wake LLM output metadata",
+      "files_changed": 2,
+      "scope": "my-pi-scripts"
+    },
+    {
+      "sha": "9f7c63215",
+      "at": "2026-07-21",
+      "author": "weikejia",
+      "message": "feat: add wake-state-agent.sh for dynamic project state analysis (agent.json)",
+      "files_changed": 2,
+      "scope": "my-pi-scripts"
+    },
+    {
+      "sha": "c6dd8b41e",
+      "at": "2026-07-21",
+      "author": "weikejia",
+      "message": "feat: add per-project elapsed time output in wake-scan-all.sh",
+      "files_changed": 1,
+      "scope": "my-pi-scripts"
+    },
+    {
+      "sha": "74a8ee478",
+      "at": "2026-07-21",
+      "author": "weikejia",
+      "message": "feat: optimize prompt rules and rename --force to --rebuild in scan scripts",
+      "files_changed": 2,
+      "scope": "my-pi-scripts"
+    },
+    {
+      "sha": "7e9149d7a",
+      "at": "2026-07-21",
+      "author": "weikejia",
+      "message": "feat: add wake-scan-all.sh for batch LLM analysis across all scanned projects",
+      "files_changed": 1,
+      "scope": "my-pi-scripts"
+    },
+    {
+      "sha": "f34ea646d",
+      "at": "2026-07-21",
+      "author": "weikejia",
+      "message": "feat: rename wake-analyze.sh to wake-base-llm.sh, add JSONL logging and local time",
+      "files_changed": 2,
+      "scope": "my-pi-scripts"
+    },
+    {
+      "sha": "7d5394090",
+      "at": "2026-07-21",
+      "author": "weikejia",
+      "message": "feat: add wake-analyze.sh script and pi CLI help doc",
+      "files_changed": 3,
+      "scope": "my-pi-scripts"
+    },
+    {
+      "sha": "48d4b0a8a",
+      "at": "2026-07-21",
+      "author": "weikejia",
+      "message": "docs: add ollama config doc and tools context analysis",
+      "files_changed": 2,
+      "scope": "my-docs"
+    },
+    {
+      "sha": "4b6f210d2",
+      "at": "2026-07-21",
+      "author": "weikejia",
+      "message": "auto-app-wp: scan update",
+      "files_changed": 5,
+      "scope": ".wake-project"
+    },
+    {
+      "sha": "ca2900aa7",
+      "at": "2026-07-21",
+      "author": "weikejia",
+      "message": "wake-project分析",
+      "files_changed": 8,
+      "scope": ".wake-project"
+    },
+    {
+      "sha": "68273c62d",
+      "at": "2026-07-21",
+      "author": "weikejia",
+      "message": "docs: add LLM payload analysis for first-turn message",
+      "files_changed": 1,
+      "scope": "my-docs"
+    },
+    {
+      "sha": "181351b19",
+      "at": "2026-07-20",
+      "author": "weikejia",
+      "message": "feat: deploy script for wkj-dev branch + project analysis",
+      "files_changed": 7,
+      "scope": "(root)"
+    }
+  ],
+  "summary": {
+    "themes": [
+      {
+        "theme": "文档体系与架构设计分析",
+        "commits": 10,
+        "representative": [
+          "a85baab6a",
+          "9dbd42329",
+          "9877397f2",
+          "48d4b0a8a"
+        ],
+        "summary": "系统梳理 hook 机制配置、wake-project 状态层设计、LLM payload 结构等核心架构问题，完善文档体系"
+      },
+      {
+        "theme": "wake-scan-all LLM 批量分析工具链",
+        "commits": 8,
+        "representative": [
+          "7e9149d7a",
+          "f34ea646d",
+          "9f7c63215",
+          "3a1420a46"
+        ],
+        "summary": "从无到有一系列脚本迭代：新建 scan 框架、重命名为 wake-base-llm、添加 JSONL 日志与元数据追踪，逐步完善 LLM 批量分析能力"
+      },
+      {
+        "theme": ".wake-project 自动化更新",
+        "commits": 3,
+        "representative": [
+          "37398b228",
+          "4b6f210d2",
+          "ca400aa7"
+        ],
+        "summary": "自动化工具或配置扫描结果持续更新"
+      },
+      {
+        "theme": "周边基础设施与分支管理",
+        "commits": 3,
+        "representative": [
+          "1aa37db72",
+          "76857dd34",
+          "181351b19"
+        ],
+        "summary": "失败间隔等运行参数调整、分支合并与部署脚本维护，属于环境配置层面改动"
+      }
+    ],
+    "one_liner": "本阶段工作完全聚焦于文档体系建设和 wake 系列分析工具链开发（文档 + 脚本），未涉及 packages/ 下核心代码逻辑的任何变动",
+    "total_commits": 22,
+    "span": {
+      "first_at": "2026-07-20",
+      "last_at": "2026-07-22"
+    }
+  }
+}
