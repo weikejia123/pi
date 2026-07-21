@@ -189,45 +189,136 @@ ls:     event.toolName: "ls"     → input: { path?, limit? }
 
 注册自定义消息和条目的 UI 渲染器。
 
-## 扩展配置方法
+## 全局 vs 项目级 Hook 配置
 
-### 方法一：`~/.pi/agent/extensions/` 目录（全局）
+Pi 的扩展加载有**全局**和**项目级**两层，源码实现见 `core/extensions/loader.ts:694-700`：
 
-将 `.ts` 或 `.js` 文件放入此目录，Pi 自动发现并加载。
+```typescript
+// 1. 项目级：cwd/.pi/extensions/
+const localExtDir = path.join(resolvedCwd, CONFIG_DIR_NAME, "extensions");
+// 2. 全局：~/.pi/agent/extensions/
+const globalExtDir = path.join(resolvedAgentDir, "extensions");
+```
 
+### 全局加载（所有目录都生效）
+
+| 优先级 | 配置方式 | 源码位置 | 说明 |
+|--------|---------|---------|------|
+| 1 | `~/.pi/agent/extensions/` 目录 | `loader.ts:699` | 目录下的 `.ts`/`.js` 文件**自动发现并加载**，无需任何配置 |
+| 2 | `~/.pi/agent/settings.json` 中 `extensions` 数组 | `settings-manager.ts:108` | 显式指定扩展文件/目录路径，全局生效 |
+
+**方式 1：目录自动发现**
+
+```bash
+# 创建目录（如不存在）
+mkdir -p ~/.pi/agent/extensions
+
+# 放入任意 .ts 文件，pi 每次启动自动发现并加载
+# 支持：单个 .ts/.js 文件、子目录（需有 index.ts 或 package.json pi.extensions）
+```
+
+目录结构示例：
 ```
 ~/.pi/agent/extensions/
-├── my-extension.ts        # 单个文件扩展
-├── my-package/            # 子目录（需有 index.ts 或 package.json pi.extensions）
-│   ├── index.ts
-│   └── package.json
+├── my-global-hook.ts           # 全局 Hook：单文件
+├── audit-trail/                # 子目录包
+│   ├── index.ts                # 入口文件
+│   ├── parsers.ts              # 模块拆分
+│   └── package.json            # 可选（可声明 pi.extensions 字段）
 ```
 
-### 方法二：项目本地扩展
-
-在项目目录下的 `.pi/extensions/`（通过 `CONFIG_DIR_NAME` 配置）放置扩展文件。
-
-```
-<project_root>/.pi/extensions/
-├── my-project-extension.ts
-```
-
-### 方法三：显式配置路径
-
-在 Pi Agent 的 settings 或 SDK 创建参数中显式传入扩展路径列表。
-
-### 方法四：package.json pi 声明
-
-在 `package.json` 中声明 `pi.extensions` 字段：
+**方式 2：settings.json 显式声明**
 
 ```json
+// ~/.pi/agent/settings.json
 {
-  "name": "my-package",
-  "pi": {
-    "extensions": ["./dist/extension.js"]
-  }
+  "extensions": [
+    "/Users/weikejia/.pi/extensions/log-calls.ts",
+    "/Users/weikejia/my-project/.pi/extensions/audit.ts"
+  ]
 }
 ```
+
+### 项目级加载（仅特定目录生效）
+
+| 优先级 | 配置方式 | 源码位置 | 说明 |
+|--------|---------|---------|------|
+| 3 | `<cwd>/.pi/extensions/` 目录 | `loader.ts:695` | 仅在 pi 从该项目目录启动时加载 |
+| 4 | `<cwd>/.pi/settings.json` 中 `extensions` 数组 | — | 项目级 settings，需要项目信任 |
+
+项目级设置会与全局设置通过 `deepMergeSettings` 合并（`settings-manager.ts:132-159`），项目级优先级高于全局级。
+
+### 加载优先级与合并规则
+
+```
+1. ~/.pi/agent/extensions/           ← 全局自动发现（最低优先级）
+2. ~/.pi/agent/settings.json → extensions    ← 全局显式声明
+3. <cwd>/.pi/extensions/              ← 项目级自动发现
+4. <cwd>/.pi/settings.json → extensions      ← 项目级显式声明（最高优先级）
+```
+
+同一路径不会被重复加载（通过 `Set<string>` 去重，`loader.ts:684-692`）。
+
+### 全局 Hook 完整配置示例
+
+创建 `~/.pi/agent/extensions/log-and-block.ts`：
+
+```typescript
+// ~/.pi/agent/extensions/log-and-block.ts
+// 无需重启，在任意目录启动 pi 都会自动加载
+
+export default function (pi: ExtensionAPI) {
+  // 1. 全局拦截：阻止危险的 bash 命令
+  pi.on("tool_call", (event, ctx) => {
+    if (event.toolName === "bash") {
+      const cmd = (event.input as { command: string }).command;
+      if (cmd.includes("rm -rf /") || cmd.includes("shutdown")) {
+        return { block: true, reason: "Dangerous command blocked by global hook" };
+      }
+    }
+  });
+
+  // 2. 全局审计：记录所有文件读取
+  pi.on("tool_call", (event, ctx) => {
+    if (event.toolName === "read") {
+      const path = (event.input as { path: string }).path;
+      console.log(`[Global Hook] File read: ${path}`);
+    }
+  });
+
+  // 3. 全局拦截：阻止未授权的 session 切换
+  pi.on("session_before_switch", (event, ctx) => {
+    // 只在特定条件下阻止
+    return { cancel: false }; // 不阻止，仅示例
+  });
+
+  // 4. 全局通信：订阅工具结果
+  pi.on("tool_result", (event, ctx) => {
+    if (event.toolName === "write" && !event.isError) {
+      console.log(`[Global Hook] File written: ${JSON.stringify(event.input)}`);
+    }
+  });
+
+  // 5. 注册全局自定义命令
+  pi.registerCommand("global-hook-status", {
+    description: "显示全局 Hook 状态",
+    handler: async (args, ctx) => {
+      ctx.ui.notify("Global hook is active!");
+    },
+  });
+}
+```
+
+### 验证全局 Hook 是否生效
+
+在任何目录运行 pi，启动时可以看到扩展加载信息（`--verbose` 或非 `quietStartup` 模式）：
+
+```
+[Extensions]
+  log-and-block.ts
+```
+
+也可以运行命令 `/extensions` 在 pi 交互模式下查看已加载的扩展列表。
 
 ## SDK 方式集成
 
