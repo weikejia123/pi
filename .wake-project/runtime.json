@@ -1,7 +1,8 @@
 {
-  "schema_version": "5",
-  "pic": null,
-  "recent_topics": [],
+  "caches": {},
   "last_event_offset": null,
-  "caches": {}
+  "pic": null,
+  "project_id": "wp-19ea0d5f386bf546",
+  "recent_topics": [],
+  "schema_version": "5"
 }

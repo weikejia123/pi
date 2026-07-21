@@ -1,7 +1,9 @@
 {
-  "schema_version": "7",
-  "scanned_at": "2026-07-20T19:45:56Z",
-  "duration_ms": 236,
+  "schema_version": "8",
+  "project_id": "wp-19ea0d5f386bf546",
+  "scan_id": "sc-20260721T091511Z-b8d37ba7",
+  "scanned_at": "2026-07-21T09:15:11Z",
+  "duration_ms": 273,
   "is_git_repo": true,
   "git": {
     "root": "/Users/weikejia/CODE/my-agent-group/projects/coder-agent/pi",
@@ -29,13 +31,13 @@
         "repo": "pi"
       }
     ],
-    "head": "ca2900aa7",
+    "head": "9f7c63215",
     "path_prefix": "",
     "has_commit_hooks": false,
     "has_upstream": false,
     "is_detached_head": false,
     "dirty_file_count": 1,
-    "has_untracked": true,
+    "has_untracked": false,
     "ahead_count": null,
     "behind_count": null,
     "latest_tag": "v0.80.10",
@@ -151,17 +153,17 @@
   ],
   "timeline": {
     "first_commit_at": "2025-08-09T17:18:38+02:00",
-    "last_commit_at": "2026-07-21T01:08:06+08:00",
+    "last_commit_at": "2026-07-21T16:42:05+08:00",
     "shallow_clone": false,
-    "last_file_modified_at": "2026-07-20T19:42:25Z",
-    "last_core_file_modified_at": "2026-07-20T14:45:56Z",
+    "last_file_modified_at": "2026-07-21T08:54:01Z",
+    "last_core_file_modified_at": "2026-07-21T08:54:01Z",
     "local_arrival_at": "2026-06-05T12:44:36Z",
     "local_arrival_source": "git_dir_birthtime",
     "local_arrival_approximate": true
   },
   "totals": {
-    "file_count": 1109,
-    "size_bytes": 15937108,
+    "file_count": 1113,
+    "size_bytes": 15957481,
     "scope": "excluding_ignored_dirs"
   },
   "ignored_dirs": [

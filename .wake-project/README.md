@@ -2,7 +2,7 @@
 
 > 本文件由 wake-project 程序自动生成，内容随 schema 版本固化，在所有项目中一致。
 > 请勿手工修改（scan 会用程序内置版本覆盖）。
-> 当前 schema_version: 7
+> 当前 schema_version: 8
 
 ## 目录用途
 
@@ -23,6 +23,15 @@
 
 约定：字段缺值时保留为 `null` / 空数组 / 空字符串，结构稳定不变；每个文件都有 `schema_version`。
 
+## ID 溯源规则
+
+每个文件自包含归属标识，可独立溯源：
+
+- `project_id`：唯一生成处是 **project.json**，其余文件全部是透传/引用
+- `scan_id`：唯一生成处是 **scan.json**（每次 scan 新建，`sc-` 前缀），其余文件全部是引用
+- declared.json / runtime.json 的 `project_id` 由程序在创建时写入；缺失时 scan 会**回填该字段**（只补 id，其余内容绝不改动）
+- LLM 产物（base-llm.json、agent.json）在 `_meta` / `based_on` 中引用两者，声明语义基于哪次扫描
+
 ## project.json
 
 - `schema_version`：结构版本
@@ -35,6 +44,8 @@
 
 由 `wake-project scan` 生成，全部为确定性事实（程序+规则，无 LLM 推断）。
 
+- `project_id`：项目 ID（透传自 project.json）
+- `scan_id`：本次扫描 ID（`sc-` 前缀，每次 scan 新建；scan.json 是唯一生成处）
 - `scanned_at`：本次扫描时间
 - `duration_ms`：本次扫描耗时（毫秒）
 - `is_git_repo`：是否拥有**自己的** `.git`（父目录仓库不算；worktree/子模块的 `.git` 文件算）。
@@ -87,6 +98,7 @@
 
 ## tech-stack.json
 
+- `project_id` / `scan_id`：归属标识，与 scan.json 同一次扫描
 - `tech_stack[]`：`{name, category, version, dev, source}`
   - `name`：规则映射后的通用名（如 Next.js）；未命中规则则为原始依赖名
   - `category` ∈ `framework` / `library` / `tool` / `runtime`
@@ -95,6 +107,7 @@
 
 ## declared.json（人工维护）
 
+- `project_id`：项目 ID（程序创建时写入，缺失时 scan 回填；人工内容绝不改动）
 - `summary`：一句话简介；`tags[]`：标签；`rules[]`：项目约定/规则
 - `notes`：备注；`related_projects[]`：关联项目
 
@@ -102,9 +115,11 @@
 
 - `inferred_project_type`：推断的项目类型；`important_paths[]`：重要路径
 - `terminology`：术语表（对象）；`inferred_relations[]`：推断的关联；`notes`：备注
+- agent 写入时应带 `based_on`：`{project_id, scan_id, head}`，声明语义基于哪个项目的哪次扫描
 
 ## runtime.json（运行时容器）
 
+- `project_id`：项目 ID（程序创建时写入，缺失时 scan 回填）
 - `pic` / `recent_topics[]` / `last_event_offset` / `caches`：运行时状态占位，语义由使用方约定
 
 ## logs/scan.jsonl（扫描历史日志）
@@ -112,6 +127,7 @@
 每次 scan 追加一行 JSON（append-only，不会被覆盖），字段：
 
 - `ts`：扫描时间；`result`：`ok` 或 `skipped_not_git`（目录失去独立 .git 后被跳过，仅在日志已存在时追加）；`duration_ms`：耗时（毫秒）
+- `project_id` / `scan_id`：归属标识（skip 条目无 scan_id，为 null）
 - `branch` / `head`：当时的 git 状态
 - `languages` / `deps`：当次扫描的各项计数
 - `files`：当次扫描的文件数估算（口径同 scan.json 的 totals）
