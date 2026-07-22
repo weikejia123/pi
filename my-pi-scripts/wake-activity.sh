@@ -120,6 +120,8 @@ while IFS= read -r line || [[ -n "$line" ]]; do
   an=$(printf  '%s' "$line" | awk -F$'\x1f' '{print $2}')
   ad=$(printf  '%s' "$line" | awk -F$'\x1f' '{print $3}')
   msg=$(printf '%s' "$line" | awk -F$'\x1f' '{print $4}')
+  # 过滤程序自动提交的扫描元数据更新（非人工改动，不纳入 activity 分析）
+  [[ "$msg" == *"auto-app-wp"* ]] && continue
   files=$(gitc show --name-only --pretty=format: "$sha" 2>/dev/null | grep -v '^$' || true)
   fc=$(printf '%s\n' "$files" | grep -vc '^$' || echo 0)
   scope=$(printf '%s\n' "$files" | awk -F/ 'NF>=2{if($1=="packages"&&NF>=3)print "packages/"$2;else print $1}NF==1{print "(root)"}' \
@@ -244,12 +246,33 @@ for i in $(seq 1 "$MAX_RETRIES"); do
     sleep 180; continue
   }
 
-  # 剥离可能的代码围栏
-  OUTPUT="$(printf '%s\n' "$RAW" | awk '
-    NR==1 && /^```[a-zA-Z]*$/ { next }
-    { lines[++n] = $0 }
-    END { for(i=1;i<=n;i++){ if(i==n && lines[i]~/^```$/) continue; print lines[i] } }
-  ')"
+  # 提取 JSON：支持纯 JSON / ```围栏 / 前后带解释文字（python3 三级降级提取）
+  OUTPUT="$(printf '%s' "$RAW" | python3 -c '
+import sys, json, re
+raw = sys.stdin.read()
+try:
+    json.loads(raw)
+    print(raw)
+    sys.exit(0)
+except Exception:
+    pass
+for m in re.finditer(r"```(?:json)?\s*\n?(.*?)\n?```", raw, re.DOTALL):
+    try:
+        json.loads(m.group(1))
+        print(m.group(1))
+        sys.exit(0)
+    except Exception:
+        pass
+start, end = raw.find("{"), raw.rfind("}")
+if 0 <= start < end:
+    try:
+        json.loads(raw[start:end+1])
+        print(raw[start:end+1])
+        sys.exit(0)
+    except Exception:
+        pass
+sys.exit(1)
+' || true)"
 
   # 校验 JSON + schema
   VALIDATION='(.themes | type == "array" and length >= 1) and (.one_liner | type == "string" and length > 0) and (.themes[] | .theme | type == "string") and (.themes[] | .commits | type == "number") and (.themes[] | .summary | type == "string") and (.themes[] | .representative | type == "array")'
