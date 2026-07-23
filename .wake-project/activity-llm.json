@@ -1,16 +1,16 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "project_id": "019f8451-b773-7c91-a3fc-3a1336d5cc87",
   "based_on": {
     "project_id": "019f8451-b773-7c91-a3fc-3a1336d5cc87",
     "scan_id": "019f8451-b9d6-7bc0-809f-5359a33544d9",
-    "head": "741f0b37d"
+    "head": "93cafec88"
   },
-  "analyzed_at": "2026-07-22T05:49:28+0800",
+  "analyzed_at": "2026-07-22T18:47:56+0800",
   "upstream_sync": {
     "remote": "upstream",
     "upstream_default_branch": "main",
-    "ahead_count": 23,
+    "ahead_count": 27,
     "behind_count": 0,
     "upstream_latest": {
       "sha": "c901d9a87",
@@ -20,6 +20,38 @@
     "note": "behind 基于最近一次 fetch 的 ref，非实时"
   },
   "our_commits": [
+    {
+      "sha": "93cafec88",
+      "at": "2026-07-22",
+      "author": "weikejia",
+      "message": "wake-activity依然有问题，继续修正",
+      "files_changed": 1,
+      "scope": "my-pi-scripts"
+    },
+    {
+      "sha": "99a35edae",
+      "at": "2026-07-22",
+      "author": "weikejia",
+      "message": "feat: 新增 wake-scan-all-activity.sh 批量扫描，门卫跳过改 exit 2 区分统计",
+      "files_changed": 2,
+      "scope": "my-pi-scripts"
+    },
+    {
+      "sha": "cc39fc848",
+      "at": "2026-07-22",
+      "author": "weikejia",
+      "message": "更新",
+      "files_changed": 1,
+      "scope": "my-pi-scripts"
+    },
+    {
+      "sha": "dd112fe10",
+      "at": "2026-07-22",
+      "author": "weikejia",
+      "message": "feat: activity-llm 新增 delta_since_last_scan 增量字段与工作区改动感知",
+      "files_changed": 3,
+      "scope": "my-pi-scripts"
+    },
     {
       "sha": "741f0b37d",
       "at": "2026-07-22",
@@ -85,28 +117,12 @@
       "scope": "my-docs"
     },
     {
-      "sha": "37398b228",
-      "at": "2026-07-21",
-      "author": "weikejia",
-      "message": "auto-app-wp: scan update",
-      "files_changed": 8,
-      "scope": ".wake-project"
-    },
-    {
       "sha": "9dbd42329",
       "at": "2026-07-21",
       "author": "weikejia",
       "message": "docs: add pi hooking system analysis (24 event types + config)",
       "files_changed": 1,
       "scope": "my-docs"
-    },
-    {
-      "sha": "2ed4be5d7",
-      "at": "2026-07-21",
-      "author": "weikejia",
-      "message": "auto-app-wp: scan update",
-      "files_changed": 7,
-      "scope": ".wake-project"
     },
     {
       "sha": "3a1420a46",
@@ -173,14 +189,6 @@
       "scope": "my-docs"
     },
     {
-      "sha": "4b6f210d2",
-      "at": "2026-07-21",
-      "author": "weikejia",
-      "message": "auto-app-wp: scan update",
-      "files_changed": 5,
-      "scope": ".wake-project"
-    },
-    {
       "sha": "ca2900aa7",
       "at": "2026-07-21",
       "author": "weikejia",
@@ -205,51 +213,52 @@
       "scope": "(root)"
     }
   ],
-  "summary": {
-    "themes": [
-      {
-        "theme": "wake-project CLI 工具链建设",
-        "commits": 12,
-        "representative": [
-          "741f0b37d",
-          "9f7c63215",
-          "7e9149d7a",
-          "74a8ee478"
-        ],
-        "summary": "从分析脚本创建、命名优化、批处理扫描到状态档案生成的完整 CLI 工具链迭代，覆盖唤醒脚本体系的核心能力扩展与调优"
-      },
-      {
-        "theme": "项目知识文档沉淀",
-        "commits": 7,
-        "representative": [
-          "9dbd42329",
-          "68273c62d",
-          "a85baab6a"
-        ],
-        "summary": "系统化整理 Pi hooks 架构、LLM payload、ollama 配置及 wake-project 设计缺口等核心概念文档，为后续开发提供知识基础"
-      },
-      {
-        "theme": "scan 数据自动化与基础部署",
-        "commits": 4,
-        "representative": [
-          "ca2900aa7",
-          "37398b228",
-          "181351b19"
-        ],
-        "summary": "wake-project scan 数据的初始化与自动增量更新，以及 wkj-dev 分支部署脚本的创建和 main 合并"
-      }
-    ],
-    "one_liner": "在 wake-project 周边建设工具链体系：以 my-pi-scripts 为核心的 CLI 扫描分析流水线迭代，配合架构文档知识沉淀与 scan 数据自动化",
-    "delta_since_last_scan": {
-      "summary": "无新增 commit；工作区有 4 处未提交改动（activity-llm.json 状态更新、活动脚本调整、设计文档修订、wake-state-agent.sh 删除），属上次分析结果的微调延续。",
-      "previous_analyzed_at": "2026-07-22T05:40:47+0800",
-      "new_commits_count": 0,
-      "dirty_files_count": 4
-    },
-    "total_commits": 23,
-    "span": {
-      "first_at": "2026-07-20",
-      "last_at": "2026-07-22"
-    }
-  }
+  "total_commits": 24,
+  "span": {
+    "first_at": "2026-07-20",
+    "last_at": "2026-07-22"
+  },
+  "one_liner": "围绕 wake-project 工具链的持续建设与深化：新增 activity 扫描与状态检测脚本、批量分析与动态分析能力，同时同步完善 hook 系统与架构相关文档",
+  "theme_count": 4,
+  "theme_1": "wake-activity 活动扫描体系",
+  "theme_1_commits": 5,
+  "theme_1_shas": [
+    "93cafec88",
+    "99a35edae",
+    "cc39fc848",
+    "dd112fe10",
+    "741f0b37d"
+  ],
+  "theme_1_summary": "构建 wake-activity.sh 生成项目活动状态档案，并扩展 wake-scan-all-activity.sh 批量扫描能力与增量字段支持",
+  "theme_2": "wake-project 核心脚本完善",
+  "theme_2_commits": 5,
+  "theme_2_shas": [
+    "7e9149d7a",
+    "f34ea646d",
+    "ca2900aa7",
+    "a85baab6a",
+    "da1c16a5b"
+  ],
+  "theme_2_summary": "搭建批量扫描框架 wake-scan-all.sh、完善 scan 脚本优化、初始化 .wake-project/ 配置并记录项目分析缺口与设计探讨",
+  "theme_3": "hooking 系统与架构文档",
+  "theme_3_commits": 4,
+  "theme_3_shas": [
+    "a85baab6a",
+    "a937c19cf",
+    "9877397f2",
+    "4059d5336"
+  ],
+  "theme_3_summary": "系统梳理 Pi hooking 机制（24事件类型、配置分类），更新 orchestrator 术语引用并分析 hook 能力分级",
+  "theme_4": "其他功能增强",
+  "theme_4_commits": 5,
+  "theme_4_shas": [
+    "76857dd34",
+    "1aa37db72",
+    "9f7c63215",
+    "c6dd8b41e",
+    "74a8ee478"
+  ],
+  "theme_4_summary": "合并 upstream main、优化失败重试间隔、新增 wake-state-agent.sh 动态状态分析及各项目运行耗时输出等功能增强",
+  "delta_summary": "自上次扫描以来无新增 commit（0 个），有 3 个未提交改动。当前最新 commit 93cafec88 为 wake-activity.sh 修复，延续了最近构建 activity 扫描体系的方向，未偏离原有建设路径。",
+  "previous_analyzed_at": "2026-07-22T18:38:17+0800"
 }
