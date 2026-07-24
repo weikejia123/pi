@@ -224,7 +224,7 @@ verify_deployment() {
   npm_info="$(npm ls -g @earendil-works/pi-coding-agent --depth=0 2>/dev/null || true)"
   log_info "npm global: $npm_info"
 
-  if echo "$npm_info" | grep -qi "link"; then
+  if echo "$npm_info" | grep -qiE "link|->"; then
     log_info "npm link 验证: 已链接到本地 ✅"
   elif echo "$npm_info" | grep -q "$repo_dir"; then
     log_info "npm link 验证: 路径匹配 ✅"
