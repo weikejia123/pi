@@ -1,9 +1,9 @@
 {
-  "schema_version": "8",
+  "schema_version": "9",
   "project_id": "019f8451-b773-7c91-a3fc-3a1336d5cc87",
-  "scan_id": "019f8451-b9d6-7bc0-809f-5359a33544d9",
-  "scanned_at": "2026-07-21T10:56:16Z",
-  "duration_ms": 259,
+  "scan_id": "019fa34f-d438-7fa0-8b68-78451ca81578",
+  "scanned_at": "2026-07-27T11:22:25Z",
+  "duration_ms": 255,
   "is_git_repo": true,
   "git": {
     "root": "/Users/weikejia/CODE/my-agent-group/projects/coder-agent/pi",
@@ -31,26 +31,26 @@
         "repo": "pi"
       }
     ],
-    "head": "9dbd42329",
+    "head": "a28ac3054",
     "path_prefix": "",
     "has_commit_hooks": false,
-    "has_upstream": false,
+    "has_upstream": true,
     "is_detached_head": false,
-    "dirty_file_count": 8,
-    "has_untracked": false,
-    "ahead_count": null,
-    "behind_count": null,
-    "latest_tag": "v0.80.10",
+    "dirty_file_count": 4,
+    "has_untracked": true,
+    "ahead_count": 31,
+    "behind_count": 0,
+    "latest_tag": "v0.82.1",
     "submodules": []
   },
   "detected_languages": [
     {
       "language": "TypeScript",
-      "files": 866
+      "files": 926
     },
     {
       "language": "JavaScript",
-      "files": 22
+      "files": 28
     },
     {
       "language": "C",
@@ -85,67 +85,79 @@
       "path": "packages/agent/package.json",
       "kind": "package.json",
       "name": "@earendil-works/pi-agent-core",
-      "version": "0.80.10"
+      "version": "0.82.1"
     },
     {
       "path": "packages/ai/package.json",
       "kind": "package.json",
       "name": "@earendil-works/pi-ai",
-      "version": "0.80.10"
+      "version": "0.82.1"
     },
     {
       "path": "packages/coding-agent/examples/extensions/custom-provider-anthropic/package.json",
       "kind": "package.json",
       "name": "pi-extension-custom-provider-anthropic",
-      "version": "0.80.10"
+      "version": "0.82.1"
     },
     {
       "path": "packages/coding-agent/examples/extensions/custom-provider-gitlab-duo/package.json",
       "kind": "package.json",
       "name": "pi-extension-custom-provider-gitlab-duo",
-      "version": "0.80.10"
+      "version": "0.82.1"
     },
     {
       "path": "packages/coding-agent/examples/extensions/gondolin/package.json",
       "kind": "package.json",
       "name": "pi-extension-gondolin",
-      "version": "0.80.10"
+      "version": "0.82.1"
     },
     {
       "path": "packages/coding-agent/examples/extensions/sandbox/package.json",
       "kind": "package.json",
       "name": "pi-extension-sandbox",
-      "version": "1.10.10"
+      "version": "1.12.1"
     },
     {
       "path": "packages/coding-agent/examples/extensions/with-deps/package.json",
       "kind": "package.json",
       "name": "pi-extension-with-deps",
-      "version": "0.80.10"
+      "version": "0.82.1"
     },
     {
       "path": "packages/coding-agent/install-lock/package.json",
       "kind": "package.json",
       "name": "@earendil-works/pi-coding-agent-install",
-      "version": "0.80.10"
+      "version": "0.82.1"
     },
     {
       "path": "packages/coding-agent/package.json",
       "kind": "package.json",
       "name": "@earendil-works/pi-coding-agent",
-      "version": "0.80.10"
+      "version": "0.82.1"
     },
     {
-      "path": "packages/orchestrator/package.json",
+      "path": "packages/evals/package.json",
       "kind": "package.json",
-      "name": "@earendil-works/pi-orchestrator",
-      "version": "0.80.10"
+      "name": "@earendil-works/pi-evals",
+      "version": "0.82.1"
+    },
+    {
+      "path": "packages/server/package.json",
+      "kind": "package.json",
+      "name": "@earendil-works/pi-server",
+      "version": "0.82.1"
+    },
+    {
+      "path": "packages/storage/sqlite-node/package.json",
+      "kind": "package.json",
+      "name": "@earendil-works/pi-storage-sqlite-node",
+      "version": "0.82.1"
     },
     {
       "path": "packages/tui/package.json",
       "kind": "package.json",
       "name": "@earendil-works/pi-tui",
-      "version": "0.80.10"
+      "version": "0.82.1"
     }
   ],
   "package_managers": [
@@ -153,17 +165,17 @@
   ],
   "timeline": {
     "first_commit_at": "2025-08-09T17:18:38+02:00",
-    "last_commit_at": "2026-07-21T18:47:02+08:00",
+    "last_commit_at": "2026-07-27T01:10:19+08:00",
     "shallow_clone": false,
-    "last_file_modified_at": "2026-07-21T10:46:59Z",
-    "last_core_file_modified_at": "2026-07-21T10:46:59Z",
+    "last_file_modified_at": "2026-07-26T17:10:19Z",
+    "last_core_file_modified_at": "2026-07-26T17:10:19Z",
     "local_arrival_at": "2026-06-05T12:44:36Z",
     "local_arrival_source": "git_dir_birthtime",
     "local_arrival_approximate": true
   },
   "totals": {
-    "file_count": 1114,
-    "size_bytes": 15966416,
+    "file_count": 1202,
+    "size_bytes": 16514123,
     "scope": "excluding_ignored_dirs"
   },
   "ignored_dirs": [
