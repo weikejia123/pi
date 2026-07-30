@@ -1,8 +1,8 @@
 {
   "schema_version": "9",
   "project_id": "019f8451-b773-7c91-a3fc-3a1336d5cc87",
-  "scan_id": "019fa34f-d438-7fa0-8b68-78451ca81578",
-  "scanned_at": "2026-07-27T11:22:25Z",
+  "scan_id": "019fb0ad-bc88-7142-b244-2a50b3b52fcb",
+  "scanned_at": "2026-07-30T01:40:03Z",
   "tech_stack": [
     {
       "name": "@anthropic-ai/sandbox-runtime",
