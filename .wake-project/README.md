@@ -2,7 +2,7 @@
 
 > 本文件由 wake-project 程序自动生成，内容随 schema 版本固化，在所有项目中一致。
 > 请勿手工修改（scan 会用程序内置版本覆盖）。
-> 当前 schema_version: 8
+> 当前 schema_version: 9
 
 ## 目录用途
 
@@ -16,9 +16,6 @@
 | project.json | 程序（init/scan） | 项目最小身份信息 |
 | scan.json | 程序（scan） | 扫描得到的高确定性事实 |
 | tech-stack.json | 程序（scan） | 完整依赖/技术栈清单（体积大，独立于 scan.json） |
-| declared.json | 人工 | 人工声明（程序只创建，绝不覆盖） |
-| agent.json | agent | agent 维护的语义信息（程序只创建，绝不覆盖） |
-| runtime.json | agent/程序 | 运行时状态容器（程序只创建，绝不覆盖） |
 | logs/scan.jsonl | 程序（scan 追加） | 扫描历史日志，每行一条 JSON，只追加不覆盖 |
 
 约定：字段缺值时保留为 `null` / 空数组 / 空字符串，结构稳定不变；每个文件都有 `schema_version`。
@@ -29,8 +26,7 @@
 
 - `project_id`：唯一生成处是 **project.json**，其余文件全部是透传/引用
 - `scan_id`：唯一生成处是 **scan.json**（每次 scan 新建），其余文件全部是引用
-- declared.json / runtime.json 的 `project_id` 由程序在创建时写入；缺失时 scan 会**回填该字段**（只补 id，其余内容绝不改动）
-- LLM 产物（base-llm.json、agent.json）在 `_meta` / `based_on` 中引用两者，声明语义基于哪次扫描
+- LLM 产物（base-llm.json，由外部脚本生成）在 `_meta` 中引用两者，声明语义基于哪次扫描
 
 ## project.json
 
@@ -105,23 +101,6 @@
   - `version`：manifest 中声明的版本约束原文；`dev`：是否为开发依赖
   - `source`：声明该依赖的 manifest 相对路径
 
-## declared.json（人工维护）
-
-- `project_id`：项目 ID（程序创建时写入，缺失时 scan 回填；人工内容绝不改动）
-- `summary`：一句话简介；`tags[]`：标签；`rules[]`：项目约定/规则
-- `notes`：备注；`related_projects[]`：关联项目
-
-## agent.json（agent 维护）
-
-- `inferred_project_type`：推断的项目类型；`important_paths[]`：重要路径
-- `terminology`：术语表（对象）；`inferred_relations[]`：推断的关联；`notes`：备注
-- agent 写入时应带 `based_on`：`{project_id, scan_id, head}`，声明语义基于哪个项目的哪次扫描
-
-## runtime.json（运行时容器）
-
-- `project_id`：项目 ID（程序创建时写入，缺失时 scan 回填）
-- `pic` / `recent_topics[]` / `last_event_offset` / `caches`：运行时状态占位，语义由使用方约定
-
 ## logs/scan.jsonl（扫描历史日志）
 
 每次 scan 追加一行 JSON（append-only，不会被覆盖），字段：
@@ -139,5 +118,5 @@ scan.json 永远只是"最新一次"的快照；历史变化（一天多次扫�
 ## 阅读注意事项
 
 1. scan.json / tech-stack.json 是**声明层事实**：依赖被声明 ≠ 运行时使用。
-2. 语义归类（项目是什么、服务边界、项目间关系）属于 declared.json / agent.json 的职责。
-3. 程序不会覆盖 declared.json / agent.json / runtime.json；其余文件（含本文件）可被 init/scan 安全重建。
+2. 语义归类（项目是什么、服务边界、项目间关系）由外部 LLM 分析产物 base-llm.json 承担。
+3. 程序生成的文件（含本文件）可被 init/scan 安全重建；base-llm.json 由外部脚本生成，程序不触碰。
