@@ -1,8 +1,8 @@
 {
-  "schema_version": "9",
+  "schema_version": "8",
   "project_id": "019f8451-b773-7c91-a3fc-3a1336d5cc87",
-  "scan_id": "019fb0ad-bc88-7142-b244-2a50b3b52fcb",
-  "scanned_at": "2026-07-30T01:40:03Z",
+  "scan_id": "019fb6f5-30cc-7f21-b0f2-28d400ac14e1",
+  "scanned_at": "2026-07-31T06:55:49Z",
   "tech_stack": [
     {
       "name": "@anthropic-ai/sandbox-runtime",
@@ -84,7 +84,7 @@
     {
       "name": "@earendil-works/pi-ai",
       "category": "library",
-      "version": "^0.82.1",
+      "version": "^0.83.0",
       "dev": false,
       "source": "packages/agent/package.json"
     },
@@ -133,7 +133,7 @@
     {
       "name": "typebox",
       "category": "library",
-      "version": "1.1.38",
+      "version": "1.3.7",
       "dev": false,
       "source": "packages/agent/package.json"
     },
@@ -238,7 +238,7 @@
     {
       "name": "typebox",
       "category": "library",
-      "version": "1.1.38",
+      "version": "1.3.7",
       "dev": false,
       "source": "packages/ai/package.json"
     },
@@ -280,28 +280,28 @@
     {
       "name": "@earendil-works/pi-coding-agent",
       "category": "library",
-      "version": "0.82.1",
+      "version": "0.83.0",
       "dev": false,
       "source": "packages/coding-agent/install-lock/package.json"
     },
     {
       "name": "@earendil-works/pi-agent-core",
       "category": "library",
-      "version": "^0.82.1",
+      "version": "^0.83.0",
       "dev": false,
       "source": "packages/coding-agent/package.json"
     },
     {
       "name": "@earendil-works/pi-ai",
       "category": "library",
-      "version": "^0.82.1",
+      "version": "^0.83.0",
       "dev": false,
       "source": "packages/coding-agent/package.json"
     },
     {
       "name": "@earendil-works/pi-tui",
       "category": "library",
-      "version": "^0.82.1",
+      "version": "^0.83.0",
       "dev": false,
       "source": "packages/coding-agent/package.json"
     },
@@ -462,7 +462,7 @@
     {
       "name": "typebox",
       "category": "library",
-      "version": "1.1.38",
+      "version": "1.3.7",
       "dev": false,
       "source": "packages/coding-agent/package.json"
     },
@@ -481,9 +481,16 @@
       "source": "packages/coding-agent/package.json"
     },
     {
+      "name": "@earendil-works/pi-ai",
+      "category": "library",
+      "version": "^0.83.0",
+      "dev": true,
+      "source": "packages/evals/package.json"
+    },
+    {
       "name": "@earendil-works/pi-coding-agent",
       "category": "library",
-      "version": "^0.82.1",
+      "version": "^0.83.0",
       "dev": true,
       "source": "packages/evals/package.json"
     },
@@ -525,7 +532,7 @@
     {
       "name": "@earendil-works/pi-coding-agent",
       "category": "library",
-      "version": "^0.82.1",
+      "version": "^0.83.0",
       "dev": false,
       "source": "packages/server/package.json"
     },
@@ -539,14 +546,14 @@
     {
       "name": "@earendil-works/pi-agent-core",
       "category": "library",
-      "version": "^0.82.1",
+      "version": "^0.83.0",
       "dev": false,
       "source": "packages/storage/sqlite-node/package.json"
     },
     {
       "name": "@earendil-works/pi-ai",
       "category": "library",
-      "version": "^0.82.1",
+      "version": "^0.83.0",
       "dev": false,
       "source": "packages/storage/sqlite-node/package.json"
     },
