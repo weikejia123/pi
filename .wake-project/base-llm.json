@@ -1,59 +1,91 @@
 {
-  "identity": {
-    "type": "cli_tool",
-    "confidence": 0.95,
-    "rationale": "项目核心是交互式编码代理CLI（@earendil-works/pi-coding-agent），通过终端提供AI辅助编程功能，包含TUI界面和可编程扩展系统。",
-    "one_liner": "Pi Agent Harness — 可扩展的交互式编码代理CLI，集成多提供商LLM支持与终端TUI界面",
-    "purpose_summary": "Pi是一个智能编码代理框架，允许开发者在终端中与AI进行交互式编程。它提供统一的LLM API（支持OpenAI、Anthropic、Google等）、可扩展的工具调用系统和实时差分渲染的终端UI。用户通过CLI或TUI与代理对话，实现代码编写、文件操作和自动化任务。"
+  "_meta" : {
+    "analyzed_at" : "2026-07-31T11:30:52Z",
+    "project_name" : "pi",
+    "schema_version" : 1
   },
-  "domains": [
-    "AI辅助编程",
-    "LLM大语言模型",
-    "终端交互",
-    "开发者工具链"
-  ],
-  "tech_summary": {
-    "natural": "TypeScript monorepo，以esbuild为构建工具，使用TypeBox做类型安全校验，YAML处理配置文件；核心功能依赖OpenAI/Anthropic/Google SDK对接多模型后端",
-    "primary_language": "TypeScript",
-    "runtime": "Node.js",
-    "framework": null,
-    "key_dependencies": [
-      "@anthropic-ai/sdk",
-      "@google/genai",
-      "openai",
-      "typebox",
-      "yaml"
-    ]
-  },
-  "critical_paths": [
+  "critical_paths" : [
     {
-      "path": "packages/coding-agent/package.json",
-      "role": "CLI主包入口，聚合agent-core、pi-ai、pi-tui等核心子包，是项目的最终发布产物和分发渠道",
-      "stability": "high"
+      "path" : "packages\/coding-agent\/src\/cli.ts",
+      "role" : "pi 命令的 CLI 入口（bin 指向 dist\/cli.js），决定命令行参数解析与启动流程，是产品最核心的对外入口",
+      "stability" : "high"
     },
     {
-      "path": "packages/ai/package.json",
-      "role": "统一多LLM供应商API封装层，是所有AI交互能力的基础依赖，屏蔽不同模型提供商的差异",
-      "stability": "high"
+      "path" : "packages\/coding-agent\/src\/main.ts",
+      "role" : "编码代理主流程编排，串联会话管理、模型调用与交互模式，是 CLI 行为的核心控制点",
+      "stability" : "high"
     },
     {
-      "path": "packages/agent/package.json",
-      "role": "代理运行时核心，包含工具调用和状态管理逻辑，是整个agent harness的行为中枢",
-      "stability": "high"
+      "path" : "packages\/coding-agent\/src\/core",
+      "role" : "read\/bash\/edit\/write 等内置工具的实现，是编码代理实际执行任务的能力基础",
+      "stability" : "high"
     },
     {
-      "path": "packages/tui/package.json",
-      "role": "终端UI渲染引擎，提供差分增量更新机制的交互式CLI界面，是用户与代理交互的视觉层",
-      "stability": "moderate"
+      "path" : "packages\/ai\/src",
+      "role" : "统一多提供商 LLM API 实现，抽象 OpenAI\/Anthropic\/Google\/Bedrock 等模型接入，是全项目 AI 能力的地基",
+      "stability" : "high"
     },
     {
-      "path": "packages/orchestrator/package.json",
-      "role": "任务编排器，负责协调多个agent实例的工作流调度，是整个系统的控制平面",
-      "stability": "moderate"
+      "path" : "packages\/agent\/src",
+      "role" : "agent 运行时，提供工具调用循环与状态管理，被 coding-agent 和 server 共同依赖，是代理执行引擎",
+      "stability" : "high"
+    },
+    {
+      "path" : "packages\/coding-agent\/package.json",
+      "role" : "定义 pi 二进制入口、构建脚本与依赖清单，决定包的发布形态与可安装性",
+      "stability" : "high"
+    },
+    {
+      "path" : "package.json",
+      "role" : "根 monorepo 配置，统筹 npm run build\/check\/test 等全仓构建与检查脚本",
+      "stability" : "high"
+    },
+    {
+      "path" : "packages\/coding-agent\/src\/extensions",
+      "role" : "扩展系统实现，允许第三方扩展与自定义 provider，是项目'自可扩展'特性的关键机制",
+      "stability" : "moderate"
+    },
+    {
+      "path" : "packages\/tui\/src",
+      "role" : "差分渲染终端 UI 库，支撑交互式界面（主题、markdown 渲染、多模式显示），决定 CLI 交互体验",
+      "stability" : "moderate"
+    },
+    {
+      "path" : "packages\/server\/src",
+      "role" : "RPC 服务端，供 Slack\/chat 等外部集成调用编码代理能力，是 CLI 之外的服务化扩展点",
+      "stability" : "moderate"
+    },
+    {
+      "path" : "packages\/storage\/sqlite-node",
+      "role" : "SQLite 持久化存储实现，负责会话与状态落盘，保证代理跨会话的数据连续性",
+      "stability" : "moderate"
     }
   ],
-  "_meta": {
-    "schema_version": 1,
-    "analyzed_at": "2026-07-21T06:27:03+0800"
+  "domains" : [
+    "AI 编程代理",
+    "开发者工具",
+    "命令行工具",
+    "终端 UI",
+    "多模型 LLM 集成"
+  ],
+  "identity" : {
+    "confidence" : 0.95999999999999996,
+    "one_liner" : "Pi Agent Harness —— 自可扩展的交互式 AI 编码代理 CLI（pi）",
+    "purpose_summary" : "Pi 是一个开源的 AI 编码代理项目，核心交付物 @earendil-works\/pi-coding-agent 提供交互式终端 CLI（命令为 pi），内置 read、bash、edit、write 等工具、会话管理与扩展机制，可自主完成编码任务。项目同时包含统一多提供商 LLM API（@earendil-works\/pi-ai，支持 OpenAI、Anthropic、Google、Bedrock 等）、带工具调用与状态管理的 agent 运行时（@earendil-works\/pi-agent-core）、差分渲染终端 UI 库（@earendil-works\/pi-tui），以及 RPC server、SQLite 存储与 evals 评估包；可通过 npm 安装或 Bun 编译为独立二进制，并支持容器\/沙箱化部署（Docker、Gondolin、OpenShell）。",
+    "rationale" : "README 与 package.json 明确将核心产品定义为可交互的 AI 编码代理 CLI（bin: pi），并附带多包 monorepo 支撑库。",
+    "type" : "cli_tool"
+  },
+  "tech_summary" : {
+    "framework" : null,
+    "key_dependencies" : [
+      "@anthropic-ai\/sdk",
+      "openai",
+      "@google\/genai",
+      "@aws-sdk\/client-bedrock-runtime",
+      "typebox"
+    ],
+    "natural" : "基于 TypeScript 的 npm monorepo（953 个 TS 文件），核心产品是可交互的 AI 编码代理 CLI（pi 命令），由统一多提供商 LLM API（Anthropic\/OpenAI\/Google\/Bedrock\/Mistral SDK）、支持工具调用与状态管理的 agent 运行时、以及自定义差分渲染终端 UI 库组成；使用 typebox 做 schema 校验、undici 做 HTTP、SQLite 做会话持久化，支持扩展机制与沙箱\/容器化部署。",
+    "primary_language" : "TypeScript",
+    "runtime" : "Node.js >= 22.19（也可用 Bun 编译为独立二进制）"
   }
 }
